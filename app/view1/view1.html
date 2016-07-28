@@ -2,9 +2,9 @@
 <div class="stores-list">
     <ul>
         <li ng-repeat="store in stores">
-            <span>{{store.name}}</span>
+            <span contenteditable="true" ng-model="store.name">{{store.name}}</span>
             <p>{{store.adress}}</p>
-            <p>The mode of operation: {{operation}}</p>
+            <p>The mode of operation: {{store.operation}}</p>
         </li>
     </ul>
 </div>
