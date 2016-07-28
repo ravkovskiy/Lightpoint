@@ -13,11 +13,15 @@ angular.module('myApp.view1', ['ngRoute'])
     $scope.stores = [
       {
         name: '35Element',
-        adress: 'Olshevskogo, 1'
+        adress: 'Olshevskogo, 1',
+        startOperation: '8:00',
+        endOperation: '20:00'
       },
       {
         name: 'New Time',
-        adress: 'Prityckogo, 2'
+        adress: 'Prityckogo, 2',
+        startOperation: '9:00',
+        endOperation: '21:00'
       }
     ];
   }]);
