@@ -4,14 +4,14 @@
         <li ng-repeat="store in stores">
             <span>{{store.name}}</span>
             <p>{{store.adress}}</p>
-            <p>The mode of operation: {{store.startOperation}}-{{store.endOperation}}</p>
+            <p>The mode of operation: {{operation}}</p>
         </li>
     </ul>
 </div>
-<div class="add-store-form{{classAddForm}}">
-    <input placeholder="Название"><br>
-    <input placeholder="Адресс"><br>
-    <input placeholder="Режим работы: 8:30-21:00">
+<div class="add-store-form{{addFormClass}}">
+    <input ng-model="addName" placeholder="Название"><br>
+    <input ng-model="addAdress" placeholder="Адресс"><br>
+    <input ng-model="addOperation" placeholder="Режим работы: 8:30-21:00">
 </div>
 <div class='add-store-button'>
     <button ng-click='AddNewStore()'>Добавить</button>

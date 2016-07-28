@@ -14,18 +14,28 @@ angular.module('myApp.view1', ['ngRoute'])
       {
         name: '35Element',
         adress: 'Olshevskogo, 1',
-        startOperation: '8:00',
-        endOperation: '20:00'
+        operation: '8:00-20:00'
       },
       {
         name: 'New Time',
         adress: 'Prityckogo, 2',
         startOperation: '9:00',
-        endOperation: '21:00'
+        operation: '9:00-21:00'
       }
     ];
     $scope.AddNewStore = function () {
-      $scope.classAddForm = ($scope.classAddForm == '') ? '-active' : ''; 
+      if ($scope.addFormClass == '') {
+        $scope.addFormClass = '-active';
+        return;
+      }
+      $scope.stores.push(
+        {
+          name: $scope.addName,
+          adress: $scope.addAdress,
+          operation: $scope.addOperation
+        }
+      );
+      $scope.addFormClass = $scope.addName = $scope.addAdress = $scope.addOperation = '';
     };
-    $scope.classAddForm = '';
+    $scope.addFormClass = '';
   }]);
