@@ -24,4 +24,8 @@ angular.module('myApp.view1', ['ngRoute'])
         endOperation: '21:00'
       }
     ];
+    $scope.AddNewStore = function () {
+      $scope.classAddForm = ($scope.classAddForm == '') ? '-active' : ''; 
+    };
+    $scope.classAddForm = '';
   }]);
