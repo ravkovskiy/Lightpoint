@@ -92,6 +92,8 @@
             crisisService.getCrisis(id).then(function (crisis) {
                 if (crisis) {
                     ctrl.editName = crisis.name;
+                    ctrl.editAdress = crisis.adress;
+                    ctrl.editOperation = crisis.operation;
                     ctrl.crisis = crisis;
                 } else { // id not found
                     ctrl.gotoCrises();
@@ -116,6 +118,8 @@
 
         this.save = function () {
             ctrl.crisis.name = ctrl.editName;
+            ctrl.crisis.adress = ctrl.editAdress;
+            ctrl.crisis.operation = ctrl.editOperation;
             ctrl.gotoCrises();
         };
 
