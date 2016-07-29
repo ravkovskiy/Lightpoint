@@ -1,19 +1,29 @@
-<table>
+<table class="table table-hover">
     <tr ng-repeat="commod in $ctrl.crisis.commodities">
-        <td>
-            <input ng-model='commod.name'>
+        <td class="info col-sm-3">
+            <input ng-model="commod.name" type="text" class="commod-input" placeholder="Имя">
         </td>
-        <td>
-            <textarea ng-model='commod.description' rows="5" cols="45"></textarea>
+        <td class="success">
+            <textarea class="commod-textarea" rows="3" ng-model='commod.description'></textarea>
         </td>
-        <td>
-            <span ng-click="$ctrl.onDelete(commod)"> &times;</span>
+        <td class="success col-sm-1">
+            <button ng-click="$ctrl.onDelete(commod)" type="button" class="close" aria-hidden="true">&times;</button>
         </td>
     </tr>
 </table>
 
-<div>
-    <input ng-model="$ctrl.commodName" placeholder="name" /><br>
-    <input ng-model="$ctrl.commodDescription" placeholder="description" />
-</div>
-<button ng-click="$ctrl.onAdd()">Add</button>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input ng-model="$ctrl.commodName" type="text" class="form-control" id="inputNameCommod" placeholder="Имя">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input ng-model="$ctrl.commodDescription" type="text" class="form-control" id="inputDescription" placeholder="Описание">
+        </div>
+    </div>
+    <div class="form-group">
+        <button ng-click="$ctrl.onAdd()" type="button" class="btn btn-primary">Добавить</button>
+    </div>
+</form>

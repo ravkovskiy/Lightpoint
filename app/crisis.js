@@ -4,7 +4,7 @@
         .service('crisisService', CrisisService)
 
         .component('crisisCenter', {
-            template: '<h2>Crisis Center</h2><ng-outlet></ng-outlet>',
+            template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
                 { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' },
@@ -105,7 +105,7 @@
         };
         this.onAdd = function () {
             crisisService.getCrises().then(function (crises) {
-                crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration });
+                crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, commodities: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };

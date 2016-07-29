@@ -11,7 +11,7 @@ angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
 .component('app', {
   template:
     '<nav>\n' +
-    '  <a ng-link="[\'CrisisCenter\']">Crisis Center</a>\n' +
+    '  <a ng-link="[\'CrisisCenter\']">Магазины</a>\n' +
     '  <a ng-link="[\'Heroes\']">Heroes</a>\n' +
     '</nav>\n' +
     '<ng-outlet></ng-outlet>\n',
