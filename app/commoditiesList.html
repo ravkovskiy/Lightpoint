@@ -1,10 +1,10 @@
 <table>
     <tr ng-repeat="commod in $ctrl.crisis.commodities">
         <td>
-            <span class="badge">{{commod.name}}</span>
+            <input ng-keypress="$ctrl.isChanged(name)" ng-model='commod.name'>
         </td>
         <td>
-            <span class="badge">{{commod.description}}</span>
+            <input ng-keypress="$ctrl.isChanged(description)" ng-model='commod.description'>
         </td>
     </tr>
 </table>

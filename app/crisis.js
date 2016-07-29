@@ -64,10 +64,12 @@
                 if (crisis) {
                     ctrl.crisis = crisis;
                 } else { // id not found
-                    
                 }
             });
         };
+        this.alertt = function() {
+            alert(1);
+        }
     }
 
     function CrisisListComponent(crisisService) {
