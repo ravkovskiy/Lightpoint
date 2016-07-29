@@ -7,7 +7,8 @@
             template: '<h2>Crisis Center</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
-                { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }
+                { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' },
+                { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
         })
 
@@ -24,15 +25,20 @@
             templateUrl: 'crisisDetail.html',
             bindings: { $router: '<' },
             controller: CrisisDetailComponent
+        })
+        .component('commoditiesList', {
+            templateUrl: 'commoditiesList.html',
+            bindings: { $router: '<' },
+            controller: commoditiesListComponent
         });
 
 
     function CrisisService($q) {
         var crisesPromise = $q.when([
-            { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00' },
-            { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00' },
-            { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00' },
-            { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00' }
+            { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', commodities: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
+            { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', commodities: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
+            { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00', commodities: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
+            { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00', commodities: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] }
         ]);
 
         this.getCrises = function () {
@@ -43,6 +49,22 @@
             return crisesPromise.then(function (crises) {
                 for (var i = 0; i < crises.length; i++) {
                     if (crises[i].id == id) return crises[i];
+                }
+            });
+        };
+    }
+
+    function commoditiesListComponent(crisisService) {
+        var ctrl = this;
+
+        this.$routerOnActivate = function (next) {
+            // Get the hero identified by the route parameter
+            var id = next.params.id;
+            crisisService.getCrisis(id).then(function (crisis) {
+                if (crisis) {
+                    ctrl.crisis = crisis;
+                } else { // id not found
+                    
                 }
             });
         };
@@ -59,6 +81,13 @@
                 ctrl.crises = crises;
                 selectedId = next.params.id;
             });
+        };
+
+        this.gotoCommodities = function (crisis) {
+            var crisisId = crisis && crisis.id;
+            // Pass along the hero id if available
+            // so that the CrisisListComponent can select that hero.
+            this.$router.navigate(['CommoditiesList', { id: crisisId }]);
         };
 
         this.isSelected = function (crisis) {
@@ -78,7 +107,7 @@
             crisisService.getCrises().then(function (crises) {
                 crises.splice(crisis.id - 1, 1);
                 for (var i = 1; i <= crises.length; i++) {
-                    crises[i-1].id = i;
+                    crises[i - 1].id = i;
                 }
             });
         };
