@@ -67,9 +67,13 @@
                 }
             });
         };
-        this.alertt = function() {
-            alert(1);
-        }
+        this.onAdd = function () {
+                ctrl.crisis.commodities.push({ name: ctrl.commodName, description: ctrl.commodDescription });
+                ctrl.commodName = ctrl.commodDescription = '';
+        };
+        this.onDelete = function (commod) {
+            ctrl.crisis.commodities.splice(ctrl.crisis.commodities.indexOf(commod), 1);
+        };
     }
 
     function CrisisListComponent(crisisService) {

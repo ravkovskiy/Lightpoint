@@ -1,10 +1,19 @@
 <table>
     <tr ng-repeat="commod in $ctrl.crisis.commodities">
         <td>
-            <input ng-keypress="$ctrl.isChanged(name)" ng-model='commod.name'>
+            <input ng-model='commod.name'>
         </td>
         <td>
-            <input ng-keypress="$ctrl.isChanged(description)" ng-model='commod.description'>
+            <textarea ng-model='commod.description' rows="5" cols="45"></textarea>
+        </td>
+        <td>
+            <span ng-click="$ctrl.onDelete(commod)"> &times;</span>
         </td>
     </tr>
 </table>
+
+<div>
+    <input ng-model="$ctrl.commodName" placeholder="name" /><br>
+    <input ng-model="$ctrl.commodDescription" placeholder="description" />
+</div>
+<button ng-click="$ctrl.onAdd()">Add</button>
