@@ -1,8 +1,8 @@
 <ul>
-    <li ng-repeat="crisis in $ctrl.crises" ng-class="{ selected: $ctrl.isSelected(crisis) }" ng-click="$ctrl.onSelect(crisis)">
+    <li ng-repeat="crisis in $ctrl.crises" ng-class="{ selected: $ctrl.isSelected(crisis) }" >
         <span class="badge">{{crisis.id}}</span>
         <div>
-            <span>{{crisis.name}}</span>
+            <span ng-click="$ctrl.onSelect(crisis)">{{crisis.name}}</span><span ng-click="$ctrl.onDelete(crisis)"> &times;</span>
             <div>
                 <span>{{crisis.adress}}</span>
                 <span>{{crisis.operation}}</span>
@@ -10,3 +10,9 @@
         </div>
     </li>
 </ul>
+<div>
+    <input ng-model="$ctrl.storeName" placeholder="name"/><br>
+    <input ng-model="$ctrl.storeAdress" placeholder="adress"/><br>
+    <input ng-model="$ctrl.storeModeOreration" placeholder="mode of operation"/>
+</div>
+<button ng-click="$ctrl.onAdd()">Add</button>
