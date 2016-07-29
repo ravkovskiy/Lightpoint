@@ -1,0 +1,12 @@
+<ul>
+    <li ng-repeat="crisis in $ctrl.crises" ng-class="{ selected: $ctrl.isSelected(crisis) }" ng-click="$ctrl.onSelect(crisis)">
+        <span class="badge">{{crisis.id}}</span>
+        <div>
+            <span>{{crisis.name}}</span>
+            <div>
+                <span>{{crisis.adress}}</span>
+                <span>{{crisis.operation}}</span>
+            </div>
+        </div>
+    </li>
+</ul>

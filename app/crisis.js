@@ -12,14 +12,7 @@ angular.module('crisis-center', ['dialog'])
   })
 
   .component('crisisList', {
-    template:
-      '<ul>\n' +
-      '  <li ng-repeat="crisis in $ctrl.crises"\n' +
-      '    ng-class="{ selected: $ctrl.isSelected(crisis) }"\n' +
-      '    ng-click="$ctrl.onSelect(crisis)">\n' +
-      '    <span class="badge">{{crisis.id}}</span> {{crisis.name}}\n' +
-      '  </li>\n' +
-      '</ul>\n',
+    templateUrl: 'crisisList.html',
     bindings: { $router: '<' },
     controller: CrisisListComponent,
     $canActivate: function($nextInstruction, $prevInstruction) {
@@ -36,10 +29,10 @@ angular.module('crisis-center', ['dialog'])
 
 function CrisisService($q) {
   var crisesPromise = $q.when([
-    {id: 1, name: 'Princess Held Captive'},
-    {id: 2, name: 'Dragon Burning Cities'},
-    {id: 3, name: 'Giant Asteroid Heading For Earth'},
-    {id: 4, name: 'Release Deadline Looms'}
+    {id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00'},
+    {id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00'},
+    {id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00'},
+    {id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00'}
   ]);
 
   this.getCrises = function() {
