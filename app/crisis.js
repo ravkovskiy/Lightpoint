@@ -3,7 +3,7 @@
     angular.module('crisis-center', ['dialog'])
         .service('crisisService', CrisisService)
 
-        .component('crisisCenter', {
+        .component('stores', {
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
