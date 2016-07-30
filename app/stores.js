@@ -145,7 +145,7 @@
                 balloonContent: '<img src="http://img-fotki.yandex.ru/get/6114/82599242.2d6/0_88b97_ec425cf5_M" />',
                 iconContent: "1"
             }, {
-                    preset: "twirl#yellowStretchyIcon",
+                    preset: "twirl#redIcon",
                     // Отключаем кнопку закрытия балуна.
                     balloonCloseButton: false,
                     // Балун будем открывать и закрывать кликом по иконке метки.
@@ -153,6 +153,16 @@
                 });
 
             myMap.geoObjects.add(placemark);
+
+            var myGeocoder = ymaps.geocode("Петрозаводск");
+            myGeocoder.then(
+                function (res) {
+                    alert('Координаты объекта :' + res.geoObjects.get(0).geometry.getCoordinates());
+                },
+                function (err) {
+                    alert('Ошибка');
+                }
+            );
         }
 
 
