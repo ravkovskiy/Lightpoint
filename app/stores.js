@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('crisis-center', ['dialog'])
+    angular.module('stores', ['dialog'])
         .service('crisisService', CrisisService)
 
         .component('stores', {
