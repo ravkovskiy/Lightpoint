@@ -8,7 +8,7 @@
             $routeConfig: [
                 { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
-                { path: '/items', name: 'ItemsList', component: 'commoditiesList' }
+                { path: '/items', name: 'ItemsList', component: 'itemsList' }
             ]
         })
 
@@ -26,10 +26,10 @@
             bindings: { $router: '<' },
             controller: CrisisDetailComponent
         })
-        .component('commoditiesList', {
-            templateUrl: 'commoditiesList.html',
+        .component('itemsList', {
+            templateUrl: 'itemsList.html',
             bindings: { $router: '<' },
-            controller: commoditiesListComponent
+            controller: itemsListComponent
         });
 
 
@@ -54,7 +54,7 @@
         };
     }
 
-    function commoditiesListComponent(storesService) {
+    function itemsListComponent(storesService) {
         var ctrl = this;
 
         this.$routerOnActivate = function (next) {
