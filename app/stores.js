@@ -119,11 +119,12 @@
             storesService.getStores().then(function (stores) {
                 stores.push({ id: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
-                ctrl.addIcon(stores.length);
+                ctrl.addIcon(stores.length, stores);
             });
         };
         this.onDelete = function (store) {
             storesService.getStores().then(function (stores) {
+                ctrl.removeIcon(store, stores)
                 stores.splice(store.id - 1, 1);
                 for (var i = 1; i <= stores.length; i++) {
                     stores[i - 1].id = i;
@@ -138,17 +139,21 @@
             });
         }
 
-        this.addIcon = function (icon) {
+        this.addIcon = function (icon, stores) {
             if (!icon) {
                 ctrl.createIcons();
             } else {
-                storesService.getStores().then(function (stores) {
                     ctrl.saveIcon(stores, icon-1);
-                });
             }
         }
-        this.removeIcon = function() {
-            
+        this.removeIcon = function(store, stores) {
+            for(var i=0; i<ctrl.icons.length; i++) {
+                if(ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                    ctrl.myMap.geoObjects.remove(ctrl.icons[i].placemark);
+                    ctrl.icons.splice(i, 1);
+                    break;
+                }
+            }
         }
         this.icons = [];
         this.saveIcon = function (stores, i) {
@@ -189,11 +194,6 @@
                 }
             });
         }
-
-
-
-
-
     }
 
 
