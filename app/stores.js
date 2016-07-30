@@ -35,12 +35,12 @@
 
     function StoresService($q) {
         var storesPromise = $q.when([
-            { id: 1, name: '1', adress: 'Prityckogo, 1', operation: '1:00-22:00', items: [{ name: 'refrigerator1', description: 'Good refrigerator1' }, { name: 'phone1', description: 'Good phone1' }] },
-            { id: 2, name: '2', adress: 'Pushkina, 2', operation: '2:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
-            { id: 3, name: '3', adress: 'Golubeva, 3', operation: '3:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
-            { id: 4, name: '4', adress: 'Miroshnichenko, 4', operation: '4:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] },
-            { id: 4, name: '5', adress: 'Yakubovskogo, 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
-            { id: 4, name: '6', adress: 'Timoshenko, 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
+            { id: 1, name: 'Алми', adress: 'Минск, Притыцкого 1', operation: '1:00-22:00', items: [{ name: 'refrigerator1', description: 'Good refrigerator1' }, { name: 'phone1', description: 'Good phone1' }] },
+            { id: 2, name: 'Green', adress: 'Минск, Пушкина 2', operation: '2:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
+            { id: 3, name: 'Евроопт', adress: 'Минск, Голубева 3', operation: '3:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
+            { id: 4, name: 'Соседи', adress: 'Минск, Мирошниченко 4', operation: '4:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] },
+            { id: 4, name: 'Prostore', adress: 'Минск, Якубовского 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
+            { id: 4, name: 'Корона', adress: 'Минск, Тимошенко 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
         ]);
 
         this.getStores = function () {
@@ -90,6 +90,20 @@
                 ctrl.stores = stores;
                 selectedId = next.params.id;
             });
+
+
+            ymaps.ready(initMap);
+            function initMap() {
+                ctrl.myMap = new ymaps.Map('myMap', {
+                    // центр и коэффициент масштабирования однозначно
+                    // определяют область картографирования
+                    center: [53.90, 27.56],
+                    zoom: 11
+                });
+                ctrl.myMap.controls.add('zoomControl', { right: '15px' });
+                ctrl.addIcon();
+            }
+
         };
 
         this.gotoItems = function (store) {
@@ -127,47 +141,54 @@
             });
         }
 
+        this.addIcon = function (icon) {
+            if (!icon) {
+                ctrl.createIcons();
+            } else {
 
-        ymaps.ready(initMap);
-        function initMap() {
-            var myMap = new ymaps.Map('myMap', {
-                // центр и коэффициент масштабирования однозначно
-                // определяют область картографирования
-                center: [53.90, 27.56],
-                zoom: 11
-            });
-            myMap.controls.add('zoomControl', { right: '15px' });
+            }
+        }
+        this.createIcons = function () {
+            ctrl.icons = [];
 
-            // Соответствует геообъекту с типом геометрии "точка" (type: "Point")
-            var myPlacemark = new ymaps.Placemark([53.90, 27.56], [53.91, 27.57]);
+            storesService.getStores().then(function (stores) {
+                for (var i = 0; i < stores.length; i++) {
 
-            var placemark = new ymaps.Placemark([53.90, 27.56], {
-                balloonContent: '<img src="http://img-fotki.yandex.ru/get/6114/82599242.2d6/0_88b97_ec425cf5_M" />',
-                iconContent: "1"
-            }, {
-                    preset: "twirl#redIcon",
-                    // Отключаем кнопку закрытия балуна.
-                    balloonCloseButton: false,
-                    // Балун будем открывать и закрывать кликом по иконке метки.
-                    hideIconOnBalloonOpen: false
-                });
+                    (function (i) {
+                        var geocoder = ymaps.geocode(stores[i].adress);
+                        geocoder.then(
+                            function (res) {
+                                var geoCoord = res.geoObjects.get(0).geometry.getCoordinates();
 
-            myMap.geoObjects.add(placemark);
-
-            var myGeocoder = ymaps.geocode("Петрозаводск");
-            myGeocoder.then(
-                function (res) {
-                    alert('Координаты объекта :' + res.geoObjects.get(0).geometry.getCoordinates());
-                },
-                function (err) {
-                    alert('Ошибка');
+                                var placemark = new ymaps.Placemark(geoCoord, {
+                                    balloonContent: '<img src="http://img-fotki.yandex.ru/get/6114/82599242.2d6/0_88b97_ec425cf5_M" />',
+                                    iconContent: stores[i].name
+                                }, {
+                                        preset: "twirl#redStretchyIcon",
+                                        // Отключаем кнопку закрытия балуна.
+                                        balloonCloseButton: false,
+                                        // Балун будем открывать и закрывать кликом по иконке метки.
+                                        hideIconOnBalloonOpen: false
+                                    });
+                                ctrl.myMap.geoObjects.add(placemark);
+                                ctrl.icons.push(placemark);
+                            },
+                            function (err) {
+                                alert('ошибка обработки адреса');
+                            }
+                        );
+                    })(i);
                 }
-            );
+
+            });
         }
 
 
 
+
+
     }
+
 
     function StoreDetailComponent(storesService) {
         var ctrl = this;
