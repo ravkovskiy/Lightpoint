@@ -8,7 +8,7 @@
             $routeConfig: [
                 { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
-                { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
+                { path: '/items', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
         })
 
