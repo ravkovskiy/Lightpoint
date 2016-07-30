@@ -58,7 +58,7 @@
         var ctrl = this;
 
         this.$routerOnActivate = function (next) {
-            // Get the hero identified by the route parameter
+            
             var id = next.params.id;
             storesService.getStore(id).then(function (store) {
                 if (store) {
@@ -82,7 +82,7 @@
 
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
-            // Load up the crises for this view
+            
             storesService.getStores().then(function (stores) {
                 ctrl.stores = stores;
                 selectedId = next.params.id;
@@ -91,8 +91,7 @@
 
         this.gotoItems = function (store) {
             var storeId = store && store.id;
-            // Pass along the hero id if available
-            // so that the CrisisListComponent can select that hero.
+            
             this.$router.navigate(['ItemsList', { id: storeId }]);
         };
 
@@ -122,7 +121,7 @@
     function StoreDetailComponent(storesService, dialogService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
-            // Get the crisis identified by the route parameter
+            
             var id = next.params.id;
             storesService.getStore(id).then(function (store) {
                 if (store) {
@@ -137,12 +136,11 @@
         };
 
         this.$routerCanDeactivate = function () {
-            // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged.
+            
             if (!this.store || this.store.name === this.editName) {
                 return true;
             }
-            // Otherwise ask the user with the dialog service and return its
-            // promise which resolves to true or false when the user decides
+            
             return dialogService.confirm('Discard changes?');
         };
 
@@ -160,16 +158,9 @@
 
         this.gotoCrises = function () {
             var storeId = ctrl.store && ctrl.store.id;
-            // Pass along the hero id if available
-            // so that the CrisisListComponent can select that hero.
+            
             this.$router.navigate(['StoresList', { id: storeId }]);
         };
     }
 
 })(window.angular);
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
