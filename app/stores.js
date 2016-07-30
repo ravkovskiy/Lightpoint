@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('stores', ['dialog'])
+    angular.module('stores', [])
         .service('storesService', StoresService)
 
         .component('stores', {
@@ -118,7 +118,7 @@
         };
     }
 
-    function StoreDetailComponent(storesService, dialogService) {
+    function StoreDetailComponent(storesService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
 
@@ -141,7 +141,6 @@
                 return true;
             }
 
-            return dialogService.confirm('Discard changes?');
         };
 
         this.cancel = function () {
