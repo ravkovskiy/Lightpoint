@@ -15,7 +15,7 @@
         .component('storesList', {
             templateUrl: 'storesList.html',
             bindings: { $router: '<' },
-            controller: CrisisListComponent,
+            controller: StoreListComponent,
             $canActivate: function ($nextInstruction, $prevInstruction) {
                 console.log('$canActivate', arguments);
             }
@@ -76,7 +76,7 @@
         };
     }
 
-    function CrisisListComponent(storesService) {
+    function StoreListComponent(storesService) {
         var selectedId = null;
         var ctrl = this;
 
