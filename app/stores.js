@@ -60,19 +60,19 @@
         this.$routerOnActivate = function (next) {
             // Get the hero identified by the route parameter
             var id = next.params.id;
-            storesService.getStore(id).then(function (crisis) {
-                if (crisis) {
-                    ctrl.crisis = crisis;
+            storesService.getStore(id).then(function (store) {
+                if (store) {
+                    ctrl.store = store;
                 } else { // id not found
                 }
             });
         };
         this.onAdd = function () {
-                ctrl.crisis.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
+                ctrl.store.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
                 ctrl.commodName = ctrl.commodDescription = '';
         };
         this.onDelete = function (commod) {
-            ctrl.crisis.items.splice(ctrl.crisis.items.indexOf(commod), 1);
+            ctrl.store.items.splice(ctrl.store.items.indexOf(commod), 1);
         };
     }
 
@@ -89,19 +89,19 @@
             });
         };
 
-        this.gotoItems = function (crisis) {
-            var crisisId = crisis && crisis.id;
+        this.gotoItems = function (store) {
+            var storeId = store && store.id;
             // Pass along the hero id if available
             // so that the CrisisListComponent can select that hero.
-            this.$router.navigate(['ItemsList', { id: crisisId }]);
+            this.$router.navigate(['ItemsList', { id: storeId }]);
         };
 
-        this.isSelected = function (crisis) {
-            return (crisis.id == selectedId);
+        this.isSelected = function (store) {
+            return (store.id == selectedId);
         };
 
-        this.onSelect = function (crisis) {
-            this.$router.navigate(['StoreDetail', { id: crisis.id }]);
+        this.onSelect = function (store) {
+            this.$router.navigate(['StoreDetail', { id: store.id }]);
         };
         this.onAdd = function () {
             storesService.getStores().then(function (stores) {
@@ -109,9 +109,9 @@
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };
-        this.onDelete = function (crisis) {
+        this.onDelete = function (store) {
             storesService.getStores().then(function (stores) {
-                stores.splice(crisis.id - 1, 1);
+                stores.splice(store.id - 1, 1);
                 for (var i = 1; i <= stores.length; i++) {
                     stores[i - 1].id = i;
                 }
@@ -124,12 +124,12 @@
         this.$routerOnActivate = function (next) {
             // Get the crisis identified by the route parameter
             var id = next.params.id;
-            storesService.getStore(id).then(function (crisis) {
-                if (crisis) {
-                    ctrl.editName = crisis.name;
-                    ctrl.editAdress = crisis.adress;
-                    ctrl.editOperation = crisis.operation;
-                    ctrl.crisis = crisis;
+            storesService.getStore(id).then(function (store) {
+                if (store) {
+                    ctrl.editName = store.name;
+                    ctrl.editAdress = store.adress;
+                    ctrl.editOperation = store.operation;
+                    ctrl.store = store;
                 } else { // id not found
                     ctrl.gotoCrises();
                 }
@@ -138,7 +138,7 @@
 
         this.$routerCanDeactivate = function () {
             // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged.
-            if (!this.crisis || this.crisis.name === this.editName) {
+            if (!this.store || this.store.name === this.editName) {
                 return true;
             }
             // Otherwise ask the user with the dialog service and return its
@@ -147,22 +147,22 @@
         };
 
         this.cancel = function () {
-            ctrl.editName = ctrl.crisis.name;
+            ctrl.editName = ctrl.store.name;
             ctrl.gotoCrises();
         };
 
         this.save = function () {
-            ctrl.crisis.name = ctrl.editName;
-            ctrl.crisis.adress = ctrl.editAdress;
-            ctrl.crisis.operation = ctrl.editOperation;
+            ctrl.store.name = ctrl.editName;
+            ctrl.store.adress = ctrl.editAdress;
+            ctrl.store.operation = ctrl.editOperation;
             ctrl.gotoCrises();
         };
 
         this.gotoCrises = function () {
-            var crisisId = ctrl.crisis && ctrl.crisis.id;
+            var storeId = ctrl.store && ctrl.store.id;
             // Pass along the hero id if available
             // so that the CrisisListComponent can select that hero.
-            this.$router.navigate(['StoresList', { id: crisisId }]);
+            this.$router.navigate(['StoresList', { id: storeId }]);
         };
     }
 

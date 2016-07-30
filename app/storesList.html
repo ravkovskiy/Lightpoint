@@ -1,17 +1,17 @@
 <div class="container">
     <div class="list-group col-sm-offset-2 col-sm-5">
-        <a ng-repeat="crisis in $ctrl.stores" ng-click="$ctrl.onSelect(crisis)" ng-class="{ selected: $ctrl.isSelected(crisis) }"
+        <a ng-repeat="store in $ctrl.stores" ng-click="$ctrl.onSelect(store)" ng-class="{ selected: $ctrl.isSelected(store) }"
             href="#" class="list-group-item">
-            <span class="badge pull-left">{{crisis.id}}</span>
+            <span class="badge pull-left">{{store.id}}</span>
             <div>
-                <button ng-click="$ctrl.onDelete(crisis)" type="button" class="close" aria-hidden="true">&times;</button>
-                <h1 class="text-center">{{crisis.name}}</h1>
+                <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
+                <h1 class="text-center">{{store.name}}</h1>
                 <div class="simple-text">
-                    <p class="text-left">Адрес: {{crisis.adress}}</p>
-                    <p class="text-left">Режим работы: {{crisis.operation}}</p>
+                    <p class="text-left">Адрес: {{store.adress}}</p>
+                    <p class="text-left">Режим работы: {{store.operation}}</p>
                 </div>
                 <p class="text-right">
-                    <span class="commod-list" ng-click="$ctrl.gotoItems(crisis)">Список товаров</span>
+                    <span class="commod-list" ng-click="$ctrl.gotoItems(store)">Список товаров</span>
                 </p>
             </div>
         </a>
