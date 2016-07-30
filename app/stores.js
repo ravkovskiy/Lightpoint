@@ -8,7 +8,7 @@
             $routeConfig: [
                 { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
-                { path: '/items', name: 'CommoditiesList', component: 'commoditiesList' }
+                { path: '/items', name: 'ItemsList', component: 'commoditiesList' }
             ]
         })
 
@@ -93,7 +93,7 @@
             var crisisId = crisis && crisis.id;
             // Pass along the hero id if available
             // so that the CrisisListComponent can select that hero.
-            this.$router.navigate(['CommoditiesList', { id: crisisId }]);
+            this.$router.navigate(['ItemsList', { id: crisisId }]);
         };
 
         this.isSelected = function (crisis) {
