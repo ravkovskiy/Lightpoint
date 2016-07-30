@@ -16,7 +16,7 @@ angular.module('app', ['ngComponentRouter', 'stores'])
     '</nav>\n' +
     '<ng-outlet></ng-outlet>\n',
   $routeConfig: [
-    {path: '/stores/...', name: 'Stores', component: 'stores', useAsDefault: true},
+    {path: '/...', name: 'Stores', component: 'stores', useAsDefault: true},
     
   ]
 });
