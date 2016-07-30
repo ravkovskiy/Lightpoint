@@ -1,6 +1,6 @@
 (function(angular) {
   'use strict';
-angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
+angular.module('app', ['ngComponentRouter', 'stores'])
 
 .config(function($locationProvider) {
   $locationProvider.html5Mode(true);
@@ -11,19 +11,13 @@ angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
 .component('app', {
   template:
     '<nav>\n' +
-    '  <a ng-link="[\'CrisisCenter\']">Магазины</a>\n' +
-    '  <a ng-link="[\'Heroes\']">Heroes</a>\n' +
+    '  <a ng-link="[\'Stores\']">Магазины</a>\n' +
+    
     '</nav>\n' +
     '<ng-outlet></ng-outlet>\n',
   $routeConfig: [
-    {path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true},
-    {path: '/heroes/...', name: 'Heroes', component: 'heroes' }
+    {path: '/...', name: 'Stores', component: 'stores', useAsDefault: true},
+    
   ]
 });
 })(window.angular);
-
-/*
-Copyright 2016 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
