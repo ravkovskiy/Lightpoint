@@ -136,7 +136,23 @@
                 center: [53.90, 27.56],
                 zoom: 11
             });
-            
+            myMap.controls.add('zoomControl', { right: '15px' });
+
+            // Соответствует геообъекту с типом геометрии "точка" (type: "Point")
+            var myPlacemark = new ymaps.Placemark([53.90, 27.56], [53.91, 27.57]);
+
+            var placemark = new ymaps.Placemark([53.90, 27.56], {
+                balloonContent: '<img src="http://img-fotki.yandex.ru/get/6114/82599242.2d6/0_88b97_ec425cf5_M" />',
+                iconContent: "1"
+            }, {
+                    preset: "twirl#yellowStretchyIcon",
+                    // Отключаем кнопку закрытия балуна.
+                    balloonCloseButton: false,
+                    // Балун будем открывать и закрывать кликом по иконке метки.
+                    hideIconOnBalloonOpen: false
+                });
+
+            myMap.geoObjects.add(placemark);
         }
 
 
