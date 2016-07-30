@@ -46,9 +46,9 @@
         };
 
         this.getStore = function (id) {
-            return storesPromise.then(function (crises) {
-                for (var i = 0; i < crises.length; i++) {
-                    if (crises[i].id == id) return crises[i];
+            return storesPromise.then(function (stores) {
+                for (var i = 0; i < stores.length; i++) {
+                    if (stores[i].id == id) return stores[i];
                 }
             });
         };
@@ -83,8 +83,8 @@
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
             // Load up the crises for this view
-            storesService.getStores().then(function (crises) {
-                ctrl.crises = crises;
+            storesService.getStores().then(function (stores) {
+                ctrl.stores = stores;
                 selectedId = next.params.id;
             });
         };
@@ -104,16 +104,16 @@
             this.$router.navigate(['StoreDetail', { id: crisis.id }]);
         };
         this.onAdd = function () {
-            storesService.getStores().then(function (crises) {
-                crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
+            storesService.getStores().then(function (stores) {
+                stores.push({ id: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };
         this.onDelete = function (crisis) {
-            storesService.getStores().then(function (crises) {
-                crises.splice(crisis.id - 1, 1);
-                for (var i = 1; i <= crises.length; i++) {
-                    crises[i - 1].id = i;
+            storesService.getStores().then(function (stores) {
+                stores.splice(crisis.id - 1, 1);
+                for (var i = 1; i <= stores.length; i++) {
+                    stores[i - 1].id = i;
                 }
             });
         };
