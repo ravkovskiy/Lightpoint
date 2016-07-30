@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('stores', ['dialog'])
-        .service('storesService', CrisisService)
+        .service('storesService', StoresService)
 
         .component('stores', {
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
@@ -33,7 +33,7 @@
         });
 
 
-    function CrisisService($q) {
+    function StoresService($q) {
         var crisesPromise = $q.when([
             { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', commodities: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
             { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', commodities: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
