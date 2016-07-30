@@ -7,7 +7,7 @@
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
-                { path: '/:id', name: 'StoreDetail', component: 'crisisDetail' },
+                { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
                 { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
         })
@@ -21,8 +21,8 @@
             }
         })
 
-        .component('crisisDetail', {
-            templateUrl: 'crisisDetail.html',
+        .component('storeDetail', {
+            templateUrl: 'storeDetail.html',
             bindings: { $router: '<' },
             controller: CrisisDetailComponent
         })
