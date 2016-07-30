@@ -89,7 +89,7 @@
             });
         };
 
-        this.gotoCommodities = function (crisis) {
+        this.gotoItems = function (crisis) {
             var crisisId = crisis && crisis.id;
             // Pass along the hero id if available
             // so that the CrisisListComponent can select that hero.
