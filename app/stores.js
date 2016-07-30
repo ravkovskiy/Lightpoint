@@ -41,7 +41,7 @@
             { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] }
         ]);
 
-        this.getCrises = function () {
+        this.getStores = function () {
             return crisesPromise;
         };
 
@@ -83,7 +83,7 @@
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
             // Load up the crises for this view
-            storesService.getCrises().then(function (crises) {
+            storesService.getStores().then(function (crises) {
                 ctrl.crises = crises;
                 selectedId = next.params.id;
             });
@@ -104,13 +104,13 @@
             this.$router.navigate(['StoreDetail', { id: crisis.id }]);
         };
         this.onAdd = function () {
-            storesService.getCrises().then(function (crises) {
+            storesService.getStores().then(function (crises) {
                 crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };
         this.onDelete = function (crisis) {
-            storesService.getCrises().then(function (crises) {
+            storesService.getStores().then(function (crises) {
                 crises.splice(crisis.id - 1, 1);
                 for (var i = 1; i <= crises.length; i++) {
                     crises[i - 1].id = i;
