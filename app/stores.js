@@ -112,10 +112,6 @@
             this.$router.navigate(['ItemsList', { id: storeId }]);
         };
 
-        this.isSelected = function (store) {
-            return (store.id == selectedId);
-        };
-
         this.onSelect = function (store) {
             this.$router.navigate(['StoreDetail', { id: store.id }]);
         };
@@ -153,25 +149,28 @@
 
             storesService.getStores().then(function (stores) {
                 for (var i = 0; i < stores.length; i++) {
-
                     (function (i) {
                         var geocoder = ymaps.geocode(stores[i].adress);
                         geocoder.then(
                             function (res) {
-                                var geoCoord = res.geoObjects.get(0).geometry.getCoordinates();
+                                try {
+                                    var geoCoord = res.geoObjects.get(0).geometry.getCoordinates();
 
-                                var placemark = new ymaps.Placemark(geoCoord, {
-                                    balloonContent: '<img src="http://img-fotki.yandex.ru/get/6114/82599242.2d6/0_88b97_ec425cf5_M" />',
-                                    iconContent: stores[i].name
-                                }, {
-                                        preset: "twirl#redStretchyIcon",
-                                        // Отключаем кнопку закрытия балуна.
-                                        balloonCloseButton: false,
-                                        // Балун будем открывать и закрывать кликом по иконке метки.
-                                        hideIconOnBalloonOpen: false
-                                    });
-                                ctrl.myMap.geoObjects.add(placemark);
-                                ctrl.icons.push(placemark);
+                                    var placemark = new ymaps.Placemark(geoCoord, {
+                                        balloonContent: '<div>Адрес: ' + stores[i].adress + '</div><div>Время работы: ' + stores[i].operation + '</div><hr>',
+                                        iconContent: stores[i].name
+                                    }, {
+                                            preset: "twirl#redStretchyIcon",
+                                            // Отключаем кнопку закрытия балуна.
+                                            balloonCloseButton: false,
+                                            // Балун будем открывать и закрывать кликом по иконке метки.
+                                            hideIconOnBalloonOpen: false
+                                        });
+                                    ctrl.myMap.geoObjects.add(placemark);
+                                    ctrl.icons.push(placemark);
+                                } catch (err) {
+                                }
+
                             },
                             function (err) {
                                 alert('ошибка обработки адреса');
@@ -179,7 +178,6 @@
                         );
                     })(i);
                 }
-
             });
         }
 
