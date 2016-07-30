@@ -34,7 +34,7 @@
 
 
     function StoresService($q) {
-        var crisesPromise = $q.when([
+        var storesPromise = $q.when([
             { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', items: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
             { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
             { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
@@ -42,11 +42,11 @@
         ]);
 
         this.getStores = function () {
-            return crisesPromise;
+            return storesPromise;
         };
 
         this.getStore = function (id) {
-            return crisesPromise.then(function (crises) {
+            return storesPromise.then(function (crises) {
                 for (var i = 0; i < crises.length; i++) {
                     if (crises[i].id == id) return crises[i];
                 }
