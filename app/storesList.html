@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="list-group col-sm-offset-2 col-sm-5">
-        <a ng-repeat="store in $ctrl.stores" ng-click="$ctrl.onSelect(store)" ng-class="{ selected: $ctrl.isSelected(store) }"
-            href="#" class="list-group-item">
+    <ul class="col-sm-offset-2 col-sm-5" dnd-list="$ctrl.stores">
+        <li ng-repeat="store in $ctrl.stores" dnd-draggable="store" dnd-moved="$ctrl.stores.splice($index, 1)" dnd-effect-allowed="move"
+            dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}" href="#" ng-click="$ctrl.onSelect(store)">
             <span class="badge pull-left">{{store.id}}</span>
             <div>
                 <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
@@ -14,69 +14,31 @@
                     <span class="commod-list" ng-click="$ctrl.gotoItems(store)">Список товаров</span>
                 </p>
             </div>
-        </a>
-    </div>
-    <div class="col-sm-5">
-        <form class="form-horizontal" role="form">
-            <div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input ng-model="$ctrl.storeName" type="text" class="form-control" placeholder="Имя">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input ng-model="$ctrl.storeAdress" type="text" class="form-control" placeholder="Адрес">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <input ng-model="$ctrl.storeModeOreration" type="text" class="form-control" placeholder="Режим работы">
-                    </div>
+        </li>
+    </ul>
+</div>
+<div class="col-sm-5">
+    <form class="form-horizontal" role="form">
+        <div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <input ng-model="$ctrl.storeName" type="text" class="form-control" placeholder="Имя">
                 </div>
             </div>
             <div class="form-group">
-                <button ng-click="$ctrl.onAdd()" type="button" class="btn btn-primary">Добавить</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<ul dnd-list="$ctrl.model.list">
-    <li ng-repeat="item in $ctrl.model.list"
-        dnd-draggable="item"
-        dnd-moved="$ctrl.model.list.splice($index, 1)"
-        dnd-effect-allowed="move"
-        dnd-selected="$ctrl.model.selected = item"
-        ng-class="{'selected': $ctrl.model.selected === item}"
-        >
-        {{item.label}}
-    </li>
-</ul>
-
-
-
-<ul class="col-sm-offset-2 col-sm-5" dnd-list="$ctrl.stores">
-        <li ng-repeat="store in $ctrl.stores"
-        dnd-draggable="store"
-        dnd-moved="$ctrl.stores.splice($index, 1)"
-        dnd-effect-allowed="move"
-        dnd-selected="$ctrl.selected = store"
-        ng-class="{ selected: $ctrl.selected === store}"
-        href="#"
-        ng-click="$ctrl.onSelect(store)">
-            <span class="badge pull-left">{{store.id}}</span>
-            <div>
-                <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
-                <h1 class="text-center">{{store.name}}</h1>
-                <div class="simple-text">
-                    <p class="text-left">Адрес: {{store.adress}}</p>
-                    <p class="text-left">Режим работы: {{store.operation}}</p>
+                <div class="col-sm-9">
+                    <input ng-model="$ctrl.storeAdress" type="text" class="form-control" placeholder="Адрес">
                 </div>
-                <p class="text-right">
-                    <span class="commod-list" ng-click="$ctrl.gotoItems(store)">Список товаров</span>
-                </p>
             </div>
-        </a>
-    </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <input ng-model="$ctrl.storeModeOreration" type="text" class="form-control" placeholder="Режим работы">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button ng-click="$ctrl.onAdd()" type="button" class="btn btn-primary">Добавить</button>
+        </div>
+    </form>
+</div>
+</div>
