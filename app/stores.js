@@ -24,7 +24,7 @@
         .component('storeDetail', {
             templateUrl: 'storeDetail.html',
             bindings: { $router: '<' },
-            controller: CrisisDetailComponent
+            controller: StoreDetailComponent
         })
         .component('itemsList', {
             templateUrl: 'itemsList.html',
@@ -119,7 +119,7 @@
         };
     }
 
-    function CrisisDetailComponent(storesService, dialogService) {
+    function StoreDetailComponent(storesService, dialogService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
             // Get the crisis identified by the route parameter
