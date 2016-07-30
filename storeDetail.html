@@ -1,0 +1,28 @@
+<div class='container'>
+  <div ng-if="$ctrl.store">
+    <h3>"{{$ctrl.editName}}"</h3>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="inputName" class="col-sm-2 control-label">Имя</label>
+        <div class="col-sm-4">
+          <input ng-model="$ctrl.editName" type="text" class="form-control" id="inputName" placeholder="Имя">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAdress" class="col-sm-2 control-label">Адрес</label>
+        <div class="col-sm-4">
+          <input ng-model="$ctrl.editAdress" type="text" class="form-control" id="inputAdress" placeholder="Адрес">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputOperation" class="col-sm-2 control-label">Режим работы</label>
+        <div class="col-sm-4">
+          <input ng-model="$ctrl.editOperation" type="text" class="form-control" id="inputOperation" placeholder="Режим работы">
+        </div>
+      </div>
+      <div class="form-group">
+        <button ng-click="$ctrl.save()" type="button" class="btn btn-primary">Сохранить</button>
+        <button ng-click="$ctrl.cancel()" type="button" class="btn btn-primary">Отмена</button>
+      </div>
+    </form>
+  </div>
