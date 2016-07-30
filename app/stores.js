@@ -13,7 +13,7 @@
         })
 
         .component('storesList', {
-            templateUrl: 'crisisList.html',
+            templateUrl: 'storesList.html',
             bindings: { $router: '<' },
             controller: CrisisListComponent,
             $canActivate: function ($nextInstruction, $prevInstruction) {
