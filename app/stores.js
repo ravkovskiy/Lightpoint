@@ -127,6 +127,20 @@
             });
         }
 
+
+        ymaps.ready(initMap);
+        function initMap() {
+            var myMap = new ymaps.Map('myMap', {
+                // центр и коэффициент масштабирования однозначно
+                // определяют область картографирования
+                center: [53.90, 27.56],
+                zoom: 11
+            });
+            
+        }
+
+
+
     }
 
     function StoreDetailComponent(storesService) {
