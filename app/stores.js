@@ -58,7 +58,7 @@
         var ctrl = this;
 
         this.$routerOnActivate = function (next) {
-            
+
             var id = next.params.id;
             storesService.getStore(id).then(function (store) {
                 if (store) {
@@ -68,8 +68,8 @@
             });
         };
         this.onAdd = function () {
-                ctrl.store.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
-                ctrl.commodName = ctrl.commodDescription = '';
+            ctrl.store.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
+            ctrl.commodName = ctrl.commodDescription = '';
         };
         this.onDelete = function (commod) {
             ctrl.store.items.splice(ctrl.store.items.indexOf(commod), 1);
@@ -82,7 +82,7 @@
 
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
-            
+
             storesService.getStores().then(function (stores) {
                 ctrl.stores = stores;
                 selectedId = next.params.id;
@@ -91,7 +91,7 @@
 
         this.gotoItems = function (store) {
             var storeId = store && store.id;
-            
+
             this.$router.navigate(['ItemsList', { id: storeId }]);
         };
 
@@ -121,7 +121,7 @@
     function StoreDetailComponent(storesService, dialogService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
-            
+
             var id = next.params.id;
             storesService.getStore(id).then(function (store) {
                 if (store) {
@@ -130,35 +130,35 @@
                     ctrl.editOperation = store.operation;
                     ctrl.store = store;
                 } else { // id not found
-                    ctrl.gotoCrises();
+                    ctrl.gotoStores();
                 }
             });
         };
 
         this.$routerCanDeactivate = function () {
-            
+
             if (!this.store || this.store.name === this.editName) {
                 return true;
             }
-            
+
             return dialogService.confirm('Discard changes?');
         };
 
         this.cancel = function () {
             ctrl.editName = ctrl.store.name;
-            ctrl.gotoCrises();
+            ctrl.gotoStores();
         };
 
         this.save = function () {
             ctrl.store.name = ctrl.editName;
             ctrl.store.adress = ctrl.editAdress;
             ctrl.store.operation = ctrl.editOperation;
-            ctrl.gotoCrises();
+            ctrl.gotoStores();
         };
 
-        this.gotoCrises = function () {
+        this.gotoStores = function () {
             var storeId = ctrl.store && ctrl.store.id;
-            
+
             this.$router.navigate(['StoresList', { id: storeId }]);
         };
     }
