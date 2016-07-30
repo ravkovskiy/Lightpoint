@@ -11,12 +11,12 @@ angular.module('app', ['ngComponentRouter', 'crisis-center'])
 .component('app', {
   template:
     '<nav>\n' +
-    '  <a ng-link="[\'CrisisCenter\']">Магазины</a>\n' +
+    '  <a ng-link="[\'Stores\']">Магазины</a>\n' +
     
     '</nav>\n' +
     '<ng-outlet></ng-outlet>\n',
   $routeConfig: [
-    {path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true},
+    {path: '/stores/...', name: 'Stores', component: 'crisisCenter', useAsDefault: true},
     
   ]
 });
