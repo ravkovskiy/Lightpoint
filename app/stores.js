@@ -35,10 +35,12 @@
 
     function StoresService($q) {
         var storesPromise = $q.when([
-            { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', items: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
-            { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
-            { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
-            { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] }
+            { id: 1, name: '1', adress: 'Prityckogo, 1', operation: '1:00-22:00', items: [{ name: 'refrigerator1', description: 'Good refrigerator1' }, { name: 'phone1', description: 'Good phone1' }] },
+            { id: 2, name: '2', adress: 'Pushkina, 2', operation: '2:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
+            { id: 3, name: '3', adress: 'Golubeva, 3', operation: '3:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
+            { id: 4, name: '4', adress: 'Miroshnichenko, 4', operation: '4:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] },
+            { id: 4, name: '5', adress: 'Yakubovskogo, 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
+            { id: 4, name: '6', adress: 'Timoshenko, 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
         ]);
 
         this.getStores = function () {
@@ -117,19 +119,13 @@
                 }
             });
         };
-
-
-        this.model = {
-        selected: null,
-        list: []
-    };
-
-    for (var i = 1; i <= 6; ++i) {
-        ctrl.model.list.push({label: "Item A" + i});
-    }
-
-
-
+        this.sortID = function () {
+            storesService.getStores().then(function (stores) {
+                for (var i = 1; i <= stores.length; i++) {
+                    stores[i - 1].id = i;
+                }
+            });
+        }
 
     }
 
