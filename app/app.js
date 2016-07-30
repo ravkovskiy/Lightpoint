@@ -1,6 +1,6 @@
 (function(angular) {
   'use strict';
-angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
+angular.module('app', ['ngComponentRouter', 'crisis-center'])
 
 .config(function($locationProvider) {
   $locationProvider.html5Mode(true);
@@ -12,12 +12,12 @@ angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
   template:
     '<nav>\n' +
     '  <a ng-link="[\'CrisisCenter\']">Магазины</a>\n' +
-    '  <a ng-link="[\'Heroes\']">Heroes</a>\n' +
+    
     '</nav>\n' +
     '<ng-outlet></ng-outlet>\n',
   $routeConfig: [
     {path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true},
-    {path: '/heroes/...', name: 'Heroes', component: 'heroes' }
+    
   ]
 });
 })(window.angular);
