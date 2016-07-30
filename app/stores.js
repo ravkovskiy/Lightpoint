@@ -7,7 +7,7 @@
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
-                { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' },
+                { path: '/:id', name: 'StoreDetail', component: 'crisisDetail' },
                 { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
         })
@@ -101,7 +101,7 @@
         };
 
         this.onSelect = function (crisis) {
-            this.$router.navigate(['CrisisDetail', { id: crisis.id }]);
+            this.$router.navigate(['StoreDetail', { id: crisis.id }]);
         };
         this.onAdd = function () {
             crisisService.getCrises().then(function (crises) {
