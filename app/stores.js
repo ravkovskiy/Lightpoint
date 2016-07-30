@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('stores', ['dialog'])
-        .service('crisisService', CrisisService)
+        .service('storesService', CrisisService)
 
         .component('stores', {
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
@@ -54,13 +54,13 @@
         };
     }
 
-    function commoditiesListComponent(crisisService) {
+    function commoditiesListComponent(storesService) {
         var ctrl = this;
 
         this.$routerOnActivate = function (next) {
             // Get the hero identified by the route parameter
             var id = next.params.id;
-            crisisService.getCrisis(id).then(function (crisis) {
+            storesService.getCrisis(id).then(function (crisis) {
                 if (crisis) {
                     ctrl.crisis = crisis;
                 } else { // id not found
@@ -76,14 +76,14 @@
         };
     }
 
-    function CrisisListComponent(crisisService) {
+    function CrisisListComponent(storesService) {
         var selectedId = null;
         var ctrl = this;
 
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
             // Load up the crises for this view
-            crisisService.getCrises().then(function (crises) {
+            storesService.getCrises().then(function (crises) {
                 ctrl.crises = crises;
                 selectedId = next.params.id;
             });
@@ -104,13 +104,13 @@
             this.$router.navigate(['StoreDetail', { id: crisis.id }]);
         };
         this.onAdd = function () {
-            crisisService.getCrises().then(function (crises) {
+            storesService.getCrises().then(function (crises) {
                 crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, commodities: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };
         this.onDelete = function (crisis) {
-            crisisService.getCrises().then(function (crises) {
+            storesService.getCrises().then(function (crises) {
                 crises.splice(crisis.id - 1, 1);
                 for (var i = 1; i <= crises.length; i++) {
                     crises[i - 1].id = i;
@@ -119,12 +119,12 @@
         };
     }
 
-    function CrisisDetailComponent(crisisService, dialogService) {
+    function CrisisDetailComponent(storesService, dialogService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
             // Get the crisis identified by the route parameter
             var id = next.params.id;
-            crisisService.getCrisis(id).then(function (crisis) {
+            storesService.getCrisis(id).then(function (crisis) {
                 if (crisis) {
                     ctrl.editName = crisis.name;
                     ctrl.editAdress = crisis.adress;
