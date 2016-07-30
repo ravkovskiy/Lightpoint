@@ -68,11 +68,11 @@
             });
         };
         this.onAdd = function () {
-            ctrl.store.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
-            ctrl.commodName = ctrl.commodDescription = '';
+            ctrl.store.items.push({ name: ctrl.itemName, description: ctrl.itemDescription });
+            ctrl.itemName = ctrl.itemDescription = '';
         };
-        this.onDelete = function (commod) {
-            ctrl.store.items.splice(ctrl.store.items.indexOf(commod), 1);
+        this.onDelete = function (item) {
+            ctrl.store.items.splice(ctrl.store.items.indexOf(item), 1);
         };
     }
 
