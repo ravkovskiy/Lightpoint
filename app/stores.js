@@ -6,13 +6,13 @@
         .component('stores', {
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
-                { path: '/', name: 'StoresList', component: 'crisisList', useAsDefault: true },
+                { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
                 { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
         })
 
-        .component('crisisList', {
+        .component('storesList', {
             templateUrl: 'crisisList.html',
             bindings: { $router: '<' },
             controller: CrisisListComponent,
