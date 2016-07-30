@@ -45,7 +45,7 @@
             return crisesPromise;
         };
 
-        this.getCrisis = function (id) {
+        this.getStore = function (id) {
             return crisesPromise.then(function (crises) {
                 for (var i = 0; i < crises.length; i++) {
                     if (crises[i].id == id) return crises[i];
@@ -60,7 +60,7 @@
         this.$routerOnActivate = function (next) {
             // Get the hero identified by the route parameter
             var id = next.params.id;
-            storesService.getCrisis(id).then(function (crisis) {
+            storesService.getStore(id).then(function (crisis) {
                 if (crisis) {
                     ctrl.crisis = crisis;
                 } else { // id not found
@@ -124,7 +124,7 @@
         this.$routerOnActivate = function (next) {
             // Get the crisis identified by the route parameter
             var id = next.params.id;
-            storesService.getCrisis(id).then(function (crisis) {
+            storesService.getStore(id).then(function (crisis) {
                 if (crisis) {
                     ctrl.editName = crisis.name;
                     ctrl.editAdress = crisis.adress;
