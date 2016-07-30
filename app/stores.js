@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('stores', [])
+    angular.module('stores', ['dndLists'])
         .service('storesService', StoresService)
 
         .component('stores', {
@@ -79,6 +79,7 @@
     function StoreListComponent(storesService) {
         var selectedId = null;
         var ctrl = this;
+        this.selected = null;
 
         this.$routerOnActivate = function (next) {
             console.log('$routerOnActivate', this, arguments);
@@ -116,6 +117,20 @@
                 }
             });
         };
+
+
+        this.model = {
+        selected: null,
+        list: []
+    };
+
+    for (var i = 1; i <= 6; ++i) {
+        ctrl.model.list.push({label: "Item A" + i});
+    }
+
+
+
+
     }
 
     function StoreDetailComponent(storesService) {
