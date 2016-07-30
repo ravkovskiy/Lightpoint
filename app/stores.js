@@ -35,10 +35,10 @@
 
     function StoresService($q) {
         var crisesPromise = $q.when([
-            { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', commodities: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
-            { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', commodities: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
-            { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00', commodities: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
-            { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00', commodities: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] }
+            { id: 1, name: '35Element', adress: 'Prityckogo, 1', operation: '9:00-22:00', items: [{ name: 'refrigerator', description: 'Good refrigerator' }, { name: 'phone', description: 'Good phone' }] },
+            { id: 2, name: 'NewTime', adress: 'Pushkina, 22', operation: '10:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
+            { id: 3, name: '5Week', adress: 'Golubeva, 16', operation: '8:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
+            { id: 4, name: 'Sunday', adress: 'Miroshnichenko, 1a', operation: '10:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] }
         ]);
 
         this.getCrises = function () {
@@ -68,11 +68,11 @@
             });
         };
         this.onAdd = function () {
-                ctrl.crisis.commodities.push({ name: ctrl.commodName, description: ctrl.commodDescription });
+                ctrl.crisis.items.push({ name: ctrl.commodName, description: ctrl.commodDescription });
                 ctrl.commodName = ctrl.commodDescription = '';
         };
         this.onDelete = function (commod) {
-            ctrl.crisis.commodities.splice(ctrl.crisis.commodities.indexOf(commod), 1);
+            ctrl.crisis.items.splice(ctrl.crisis.items.indexOf(commod), 1);
         };
     }
 
@@ -105,7 +105,7 @@
         };
         this.onAdd = function () {
             storesService.getCrises().then(function (crises) {
-                crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, commodities: [] });
+                crises.push({ id: crises.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
                 ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             });
         };
