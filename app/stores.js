@@ -147,6 +147,9 @@
                 });
             }
         }
+        this.removeIcon = function() {
+            
+        }
         this.icons = [];
         this.saveIcon = function (stores, i) {
             var geocoder = ymaps.geocode(stores[i].adress);
@@ -166,7 +169,7 @@
                                 hideIconOnBalloonOpen: false
                             });
                         ctrl.myMap.geoObjects.add(placemark);
-                        ctrl.icons.push(placemark);
+                        ctrl.icons.push({adress: stores[i].adress, name: stores[i].name, placemark: placemark});
                     } catch (err) {
                     }
 
