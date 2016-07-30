@@ -6,7 +6,7 @@
         .component('stores', {
             template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
             $routeConfig: [
-                { path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true },
+                { path: '/', name: 'StoresList', component: 'crisisList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
                 { path: '/commodities', name: 'CommoditiesList', component: 'commoditiesList' }
             ]
@@ -162,7 +162,7 @@
             var crisisId = ctrl.crisis && ctrl.crisis.id;
             // Pass along the hero id if available
             // so that the CrisisListComponent can select that hero.
-            this.$router.navigate(['CrisisList', { id: crisisId }]);
+            this.$router.navigate(['StoresList', { id: crisisId }]);
         };
     }
 
