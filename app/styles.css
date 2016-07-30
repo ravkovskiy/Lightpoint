@@ -38,7 +38,9 @@ Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 */
-
+.commod-input {
+  font-size: 24px;
+}
 .commod-textarea, .commod-input {
   background-color: transparent;
   border: 0px;
@@ -55,11 +57,14 @@ td .close {
 .commod-list {
   font-weight: bold;
   color: #18d;
-  font-size: 16px
+  font-size: 16px;
 }
 .commod-list:hover {
   color: #1171a3;
 }
 .simple-text {
   color: #89a;
+}
+div.list-group a{
+  position: relative;
 }
