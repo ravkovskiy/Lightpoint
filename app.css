@@ -1,38 +1,159 @@
-/* app css stylesheet */
+h1 {color: #369; font-family: Arial, Helvetica, sans-serif; font-size: 250%;}
+h2 { color: #369; font-family: Arial, Helvetica, sans-serif;  }
+h3 { color: #444; font-weight: lighter; }
+body { margin: 2em; }
+body, input[text], button { color: #888; font-family: Cambria, Georgia; }
+button {padding: 0.2em; font-size: 14px}
+
+ul {list-style-type: none; margin-left: 1em; padding: 0; width: 20em;}
+
+li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease; }
+li:hover {color: #369; background-color: #e1eef2 !important; left: .2em;}
+
+/* route-link anchor tags */
+a {padding: 5px; text-decoration: none; font-family: Arial, Helvetica, sans-serif; }
+a:visited, a:link {color: #444;}
+a:hover {color: white; background-color: #1171a3; }
+a.router-link-active {color: white; background-color: #52b9e9; }
+
+.selected { background-color: #EEE; color: #369; }
+
+.badge {
+  font-size: small;
+  color: white;
+  padding: 0.1em 0.7em;
+  background-color: #369;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
+
+crisis-detail input {
+  width: 20em;
+}
+
 /*
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
-.add-store-form {
-  display: none;
-}
-.add-store-form-active {
-  display: block;
-}
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
 */
+.commod-input {
+  font-size: 24px;
+}
+.commod-textarea, .commod-input {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  width: 100%;
+}
+td .close {
+  font-size: 34px;
+  float: left;
+}
+.close {
+  font-size: 34px;
+}
+.commod-list {
+  font-weight: bold;
+  color: #18d;
+  font-size: 16px;
+}
+.commod-list:hover {
+  color: #1171a3;
+}
+.simple-text {
+  color: #89a;
+}
+div.list-group a{
+  position: relative;
+}
+.search {
+  height: 90px;
+}
+
+
+
+
+
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ ul[dnd-list],
+ ul[dnd-list] > li {
+	position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+ ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+ ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+ ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+}
+
+/**
+ * Show selected elements in green
+ */
+ ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+#myMap {
+  height: 300px;
+}
+.glyphicon-pencil {
+  color: #aaa;
+}
+.glyphicon-pencil:hover {
+  color: #555;
+}
+.sort-items {
+  font-size: 16px;
+  cursor: pointer;
+}
+.sort-items span{
+  font-size: 12px;
+}

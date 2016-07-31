@@ -1,29 +1,65 @@
-<table class="table table-hover">
-    <tr ng-repeat="item in $ctrl.store.items">
-        <td class="info col-sm-3">
-            <input ng-model="item.name" type="text" class="commod-input" placeholder="Имя">
-        </td>
-        <td class="success">
-            <textarea class="commod-textarea" rows="3" ng-model='item.description'></textarea>
-        </td>
-        <td class="success col-sm-1">
-            <button ng-click="$ctrl.onDelete(item)" type="button" class="close" aria-hidden="true">&times;</button>
-        </td>
-    </tr>
-</table>
-
-<form class="form-horizontal" role="form">
+<h1 class="title text-center">"{{$ctrl.store.name}}"</h1>
+<hr>
+<p>Адрес: {{$ctrl.store.adress}}</p>
+<p>Режим работы: {{$ctrl.store.operation}}</p>
+<form ng-submit="$ctrl.onAdd()" class="form-horizontal" role="form">
     <div class="form-group">
         <div class="col-sm-4">
-            <input ng-model="$ctrl.itemName" type="text" class="form-control" id="inputNameCommod" placeholder="Имя">
+            <input ng-model="$ctrl.itemName" type="text" class="form-control" id="inputNameCommod" placeholder="Имя" required>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-4">
-            <input ng-model="$ctrl.itemDescription" type="text" class="form-control" id="inputDescription" placeholder="Описание">
+            <input ng-model="$ctrl.itemDescription" type="text" class="form-control" id="inputDescription" placeholder="Описание" required>
         </div>
     </div>
     <div class="form-group">
-        <button ng-click="$ctrl.onAdd()" type="button" class="btn btn-primary">Добавить</button>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <button ng-click="$ctrl.return()" type="button" class="btn btn-primary">Назад</button>
+        </div>
     </div>
 </form>
+
+<div class="container">
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" class="form-control" placeholder="Поиск" ng-model="$ctrl.search">
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <td>
+                    <span ng-click="$ctrl.sortType = 'name'; $ctrl.sortReverse = !$ctrl.sortReverse" class="sort-items">
+                        <span ng-show="$ctrl.sortType == 'name' && !$ctrl.sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                    <span ng-show="$ctrl.sortType == 'name' && $ctrl.sortReverse" class="glyphicon glyphicon-chevron-up"></span>                    Название
+                    </a>
+                </td>
+                <td>
+                    Описание
+                </td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="item in $ctrl.store.items | orderBy:$ctrl.sortType:$ctrl.sortReverse | filter:$ctrl.search">
+                <td class="col-sm-3">
+                    <input ng-model="item.name" type="text" class="commod-input" placeholder="Имя">
+                </td>
+                <td>
+                    <textarea class="commod-textarea" rows="3" ng-model='item.description'></textarea>
+                    <button ng-click="$ctrl.onDelete(item)" type="button" class="pull-right close" aria-hidden="true">&times;</button>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
