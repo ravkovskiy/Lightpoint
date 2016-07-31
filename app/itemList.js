@@ -15,6 +15,11 @@
             var order = next.params.order;
             ctrl.store = storesService.getStore(order);
         };
+
+        this.sortType = 'name'; // set the default sort type
+        this.sortReverse = false;  // set the default sort order
+        this.search = '';     // set the default search/filter term
+
         this.onAdd = function () {
             ctrl.store.items.push({ name: ctrl.itemName, description: ctrl.itemDescription });
             ctrl.itemName = ctrl.itemDescription = '';

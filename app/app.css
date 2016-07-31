@@ -150,3 +150,10 @@ div.list-group a{
 .glyphicon-pencil:hover {
   color: #555;
 }
+.sort-items {
+  font-size: 16px;
+  cursor: pointer;
+}
+.sort-items span{
+  font-size: 12px;
+}
