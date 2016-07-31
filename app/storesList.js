@@ -42,13 +42,13 @@
             this.$router.navigate(['StoreDetail', { order: store.order }]);
         };
         this.onAdd = function () {
-            var stores = storesService.getStores();
+            var stores = ctrl.stores;
             stores.push({ order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             ctrl.addIcon(stores.length, stores);
         };
         this.onDelete = function (store) {
-            var stores = storesService.getStores();
+            var stores = ctrl.stores;
             ctrl.removeIcon(store, stores)
             stores.splice(store.order - 1, 1);
             for (var i = 1; i <= stores.length; i++) {
@@ -56,7 +56,7 @@
             }
         };
         this.sortOrder = function () {
-            var stores = storesService.getStores();
+            var stores = ctrl.stores;
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
@@ -119,7 +119,7 @@
             );
         }
         this.createIcons = function () {
-            var stores = storesService.getStores();
+            var stores = ctrl.stores;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
                     ctrl.saveIcon(stores, i);
