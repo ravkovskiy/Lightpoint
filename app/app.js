@@ -10,11 +10,7 @@ angular.module('app', ['ngComponentRouter', 'stores'])
 
 .component('app', {
   template:
-    '<nav>\n' +
-    '  <a ng-link="[\'Stores\']">Магазины</a>\n' +
-    
-    '</nav>\n' +
-    '<ng-outlet></ng-outlet>\n',
+    '<ng-outlet></ng-outlet>',
   $routeConfig: [
     {path: '/...', name: 'Stores', component: 'stores', useAsDefault: true},
     
