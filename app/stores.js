@@ -15,7 +15,7 @@
         .component('storesList', {
             templateUrl: 'storesList.html',
             bindings: { $router: '<' },
-            controller: StoreListComponent,
+            controller: StoreListController,
             $canActivate: function ($nextInstruction, $prevInstruction) {
                 console.log('$canActivate', arguments);
             }
@@ -24,14 +24,8 @@
         .component('storeDetail', {
             templateUrl: 'storeDetail.html',
             bindings: { $router: '<' },
-            controller: StoreDetailComponent
+            controller: StoreDetailController
         })
-        .component('itemsList', {
-            templateUrl: 'itemsList.html',
-            bindings: { $router: '<' },
-            controller: itemsListComponent
-        });
-
 
     function StoresService($q) {
         var storesPromise = $q.when([
@@ -56,32 +50,8 @@
         };
     }
 
-    function itemsListComponent(storesService) {
-        var ctrl = this;
 
-        this.$routerOnActivate = function (next) {
-
-            var order = next.params.order;
-            storesService.getStore(order).then(function (store) {
-                if (store) {
-                    ctrl.store = store;
-                } else { // order not found
-                }
-            });
-        };
-        this.onAdd = function () {
-            ctrl.store.items.push({ name: ctrl.itemName, description: ctrl.itemDescription });
-            ctrl.itemName = ctrl.itemDescription = '';
-        };
-        this.onDelete = function (item) {
-            ctrl.store.items.splice(ctrl.store.items.indexOf(item), 1);
-        };
-        this.return = function () {
-            this.$router.navigate(['StoresList']);
-        };
-    }
-
-    function StoreListComponent(storesService) {
+    function StoreListController(storesService) {
         var ctrl = this;
         this.selected = null;
 
@@ -225,7 +195,7 @@
     }
 
 
-    function StoreDetailComponent(storesService) {
+    function StoreDetailController(storesService) {
         var ctrl = this;
         this.$routerOnActivate = function (next) {
 
