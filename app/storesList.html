@@ -1,9 +1,9 @@
 <div class="container">
     <ul class="col-sm-offset-1 col-sm-5" dnd-list="$ctrl.stores">
         <li ng-repeat="store in $ctrl.stores" dnd-draggable="store" dnd-moved="$ctrl.stores.splice($index, 1)" dnd-effect-allowed="move"
-            dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}" dnd-dragend="$ctrl.sortID()"
+            dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}" dnd-dragend="$ctrl.sortOrder()"
             href="#" ng-click="$ctrl.onSelect(store)" ng-mouseenter="$ctrl.onStoreEnter(store)" ng-mouseleave="$ctrl.onStoreLeave(store)">
-            <span class="badge pull-left">{{store.id}}</span>
+            <span class="badge pull-left">{{store.order}}</span>
             <div>
                 <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
                 <h1 class="text-center">{{store.name}}</h1>
