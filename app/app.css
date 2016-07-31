@@ -8,7 +8,7 @@ button {padding: 0.2em; font-size: 14px}
 ul {list-style-type: none; margin-left: 1em; padding: 0; width: 20em;}
 
 li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease; }
-li:hover {color: #369; background-color: #EEE; left: .2em;}
+li:hover {color: #369; background-color: #e1eef2 !important; left: .2em;}
 
 /* route-link anchor tags */
 a {padding: 5px; text-decoration: none; font-family: Arial, Helvetica, sans-serif; }
@@ -67,6 +67,9 @@ td .close {
 }
 div.list-group a{
   position: relative;
+}
+.search {
+  height: 90px;
 }
 
 
