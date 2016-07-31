@@ -33,6 +33,7 @@
         };
         this.filterStores = function() {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.sortOrder();
         }
         
         this.gotoItems = function (store) {
@@ -59,7 +60,8 @@
             }
         };
         this.sortOrder = function () {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
+            console.log(stores);
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
