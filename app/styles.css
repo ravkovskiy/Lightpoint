@@ -137,3 +137,7 @@ div.list-group a{
     background-color: #dff0d8;
     color: #3c763d;
 }
+
+#myMap {
+  height: 300px;
+}

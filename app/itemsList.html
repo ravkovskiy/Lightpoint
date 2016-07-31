@@ -1,3 +1,21 @@
+<form ng-submit="$ctrl.onAdd()" class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input ng-model="$ctrl.itemName" type="text" class="form-control" id="inputNameCommod" placeholder="Имя" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input ng-model="$ctrl.itemDescription" type="text" class="form-control" id="inputDescription" placeholder="Описание" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+    </div>
+</form>
+
 <table class="table table-hover">
     <tr ng-repeat="item in $ctrl.store.items">
         <td class="info col-sm-3">
@@ -11,19 +29,3 @@
         </td>
     </tr>
 </table>
-
-<form class="form-horizontal" role="form">
-    <div class="form-group">
-        <div class="col-sm-4">
-            <input ng-model="$ctrl.itemName" type="text" class="form-control" id="inputNameCommod" placeholder="Имя">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4">
-            <input ng-model="$ctrl.itemDescription" type="text" class="form-control" id="inputDescription" placeholder="Описание">
-        </div>
-    </div>
-    <div class="form-group">
-        <button ng-click="$ctrl.onAdd()" type="button" class="btn btn-primary">Добавить</button>
-    </div>
-</form>

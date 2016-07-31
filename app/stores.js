@@ -98,7 +98,7 @@
                     // центр и коэффициент масштабирования однозначно
                     // определяют область картографирования
                     center: [53.90, 27.56],
-                    zoom: 11
+                    zoom: 10
                 });
                 ctrl.myMap.controls.add('zoomControl', { right: '15px' });
                 ctrl.addIcon();
