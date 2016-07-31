@@ -4,7 +4,7 @@
         .service('storesService', StoresService)
 
         .component('stores', {
-            template: '<h2>Магазины</h2><ng-outlet></ng-outlet>',
+            template: '<ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
                 { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
