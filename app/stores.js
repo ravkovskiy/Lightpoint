@@ -76,10 +76,12 @@
         this.onDelete = function (item) {
             ctrl.store.items.splice(ctrl.store.items.indexOf(item), 1);
         };
+        this.return = function () {
+            this.$router.navigate(['StoresList']);
+        };
     }
 
     function StoreListComponent(storesService) {
-        var selectedOrder = null;
         var ctrl = this;
         this.selected = null;
 
@@ -88,7 +90,6 @@
 
             storesService.getStores().then(function (stores) {
                 ctrl.stores = stores;
-                selectedOrder = next.params.order;
             });
 
 
@@ -264,7 +265,7 @@
         this.gotoStores = function () {
             var storeOrder = ctrl.store && ctrl.store.order;
 
-            this.$router.navigate(['StoresList', { order: storeOrder }]);
+            this.$router.navigate(['StoresList']);
         };
     }
 
