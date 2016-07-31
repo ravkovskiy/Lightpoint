@@ -141,3 +141,9 @@ div.list-group a{
 #myMap {
   height: 300px;
 }
+.glyphicon-pencil {
+  color: #aaa;
+}
+.glyphicon-pencil:hover {
+  color: #555;
+}

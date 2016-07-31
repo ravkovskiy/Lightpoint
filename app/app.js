@@ -10,7 +10,7 @@ angular.module('app', ['ngComponentRouter', 'stores'])
 
 .component('app', {
   template:
-    '<hr><ng-outlet></ng-outlet>',
+    '<ng-outlet></ng-outlet>',
   $routeConfig: [
     {path: '/...', name: 'Stores', component: 'stores', useAsDefault: true},
     
