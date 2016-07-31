@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('stores')
-        
+
         .component('storeDetail', {
             templateUrl: 'storeDetail.html',
             bindings: { $router: '<' },
@@ -13,16 +13,12 @@
         this.$routerOnActivate = function (next) {
 
             var order = next.params.order;
-            storesService.getStore(order).then(function (store) {
-                if (store) {
-                    ctrl.editName = store.name;
-                    ctrl.editAdress = store.adress;
-                    ctrl.editOperation = store.operation;
-                    ctrl.store = store;
-                } else { // order not found
-                    ctrl.gotoStores();
-                }
-            });
+            var store = storesService.getStore(order);
+
+            ctrl.editName = store.name;
+            ctrl.editAdress = store.adress;
+            ctrl.editOperation = store.operation;
+            ctrl.store = store;
         };
 
         this.$routerCanDeactivate = function () {

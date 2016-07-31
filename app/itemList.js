@@ -13,12 +13,7 @@
         this.$routerOnActivate = function (next) {
 
             var order = next.params.order;
-            storesService.getStore(order).then(function (store) {
-                if (store) {
-                    ctrl.store = store;
-                } else { // order not found
-                }
-            });
+            ctrl.store = storesService.getStore(order);
         };
         this.onAdd = function () {
             ctrl.store.items.push({ name: ctrl.itemName, description: ctrl.itemDescription });

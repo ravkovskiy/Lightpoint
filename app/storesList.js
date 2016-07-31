@@ -16,12 +16,7 @@
         this.selected = null;
 
         this.$routerOnActivate = function (next) {
-            console.log('$routerOnActivate', this, arguments);
-
-            storesService.getStores().then(function (stores) {
-                ctrl.stores = stores;
-            });
-
+            ctrl.stores = storesService.getStores();
 
             ymaps.ready(initMap);
             function initMap() {
@@ -47,27 +42,24 @@
             this.$router.navigate(['StoreDetail', { order: store.order }]);
         };
         this.onAdd = function () {
-            storesService.getStores().then(function (stores) {
-                stores.push({ order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
-                ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
-                ctrl.addIcon(stores.length, stores);
-            });
+            var stores = storesService.getStores();
+            stores.push({ order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
+            ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
+            ctrl.addIcon(stores.length, stores);
         };
         this.onDelete = function (store) {
-            storesService.getStores().then(function (stores) {
-                ctrl.removeIcon(store, stores)
-                stores.splice(store.order - 1, 1);
-                for (var i = 1; i <= stores.length; i++) {
-                    stores[i - 1].order = i;
-                }
-            });
+            var stores = storesService.getStores();
+            ctrl.removeIcon(store, stores)
+            stores.splice(store.order - 1, 1);
+            for (var i = 1; i <= stores.length; i++) {
+                stores[i - 1].order = i;
+            }
         };
         this.sortOrder = function () {
-            storesService.getStores().then(function (stores) {
-                for (var i = 1; i <= stores.length; i++) {
-                    stores[i - 1].order = i;
-                }
-            });
+            var stores = storesService.getStores();
+            for (var i = 1; i <= stores.length; i++) {
+                stores[i - 1].order = i;
+            }
         }
 
         this.addIcon = function (icon, stores) {
@@ -127,14 +119,12 @@
             );
         }
         this.createIcons = function () {
-
-            storesService.getStores().then(function (stores) {
-                for (var i = 0; i < stores.length; i++) {
-                    (function (i) {
-                        ctrl.saveIcon(stores, i);
-                    })(i);
-                }
-            });
+            var stores = storesService.getStores();
+            for (var i = 0; i < stores.length; i++) {
+                (function (i) {
+                    ctrl.saveIcon(stores, i);
+                })(i);
+            }
         }
 
         this.onStoreEnter = function (store) {
