@@ -22,9 +22,29 @@
 
   <link rel="stylesheet" href="app.css">
   <link href="styles.css" rel="stylesheet" type="text/css">
+  
+</head>
+
+<body ng-app="app">
+  <h1 class="title text-center">Магазины</h1>
+  <app></app>
+  
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+
+
+
+
+  <script src="bower_components/angular/angular.js"></script>
+  <!--<script src="bower_components/angular-route/angular-route.js"></script>-->
+  <script src="https://npmcdn.com/@angular/router@0.2.0/angular1/angular_1_router.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script src="app.js"></script>
   <script src="stores.js"></script>
   <script src="angular-drag-and-drop-lists.js"></script>
@@ -34,24 +54,6 @@
   <script type="text/javascript">
     angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
   </script>
-</head>
-
-<body ng-app="app">
-  <h1 class="title text-center">Магазины</h1>
-  <app></app>
-  <script src="https://npmcdn.com/@angular/router@0.2.0/angular1/angular_1_router.js"></script>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-
-
 
 
 
