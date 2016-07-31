@@ -2,7 +2,7 @@
     <ul class="col-sm-offset-1 col-sm-5" dnd-list="$ctrl.stores">
         <li ng-repeat="store in $ctrl.stores" dnd-draggable="store" dnd-moved="$ctrl.stores.splice($index, 1)" dnd-effect-allowed="move"
             dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}" dnd-dragend="$ctrl.sortID()"
-            href="#" ng-click="$ctrl.onSelect(store)">
+            href="#" ng-click="$ctrl.onSelect(store)" ng-mouseenter="$ctrl.onStoreEnter(store)" ng-mouseleave="$ctrl.onStoreLeave(store)">
             <span class="badge pull-left">{{store.id}}</span>
             <div>
                 <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
@@ -22,7 +22,7 @@
             <div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input ng-model="$ctrl.storeName" type="text" class="form-control" placeholder="Имя">
+                        <input ng-model="$ctrl.storeName" type="text" class="form-control" placeholder="Имя" required>
                     </div>
                 </div>
                 <div class="form-group">

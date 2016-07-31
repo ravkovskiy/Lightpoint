@@ -39,8 +39,8 @@
             { id: 2, name: 'Green', adress: 'Минск, Пушкина 2', operation: '2:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
             { id: 3, name: 'Евроопт', adress: 'Минск, Голубева 3', operation: '3:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
             { id: 4, name: 'Соседи', adress: 'Минск, Мирошниченко 4', operation: '4:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] },
-            { id: 4, name: 'Prostore', adress: 'Минск, Якубовского 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
-            { id: 4, name: 'Корона', adress: 'Минск, Тимошенко 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
+            { id: 5, name: 'Prostore', adress: 'Минск, Якубовского 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
+            { id: 6, name: 'Корона', adress: 'Минск, Тимошенко 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
         ]);
 
         this.getStores = function () {
@@ -143,12 +143,12 @@
             if (!icon) {
                 ctrl.createIcons();
             } else {
-                    ctrl.saveIcon(stores, icon-1);
+                ctrl.saveIcon(stores, icon - 1);
             }
         }
-        this.removeIcon = function(store, stores) {
-            for(var i=0; i<ctrl.icons.length; i++) {
-                if(ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+        this.removeIcon = function (store, stores) {
+            for (var i = 0; i < ctrl.icons.length; i++) {
+                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
                     ctrl.myMap.geoObjects.remove(ctrl.icons[i].placemark);
                     ctrl.icons.splice(i, 1);
                     break;
@@ -174,7 +174,19 @@
                                 hideIconOnBalloonOpen: false
                             });
                         ctrl.myMap.geoObjects.add(placemark);
-                        ctrl.icons.push({adress: stores[i].adress, name: stores[i].name, placemark: placemark});
+                        console.dir(placemark);
+                        placemark.events
+                            .add('mouseenter', function (e) {
+                                // Ссылку на объект, вызвавший событие,
+                                // можно получить из поля 'target'.
+                                e.get('target').options.set('preset', 'twirl#greenStretchyIcon');
+                            })
+                            .add('mouseleave', function (e) {
+                                e.get('target').options.set('preset', 'twirl#redStretchyIcon');
+                            });
+
+
+                        ctrl.icons.push({ adress: stores[i].adress, name: stores[i].name, placemark: placemark });
                     } catch (err) {
                     }
 
@@ -193,6 +205,22 @@
                     })(i);
                 }
             });
+        }
+
+        this.onStoreEnter = function (store) {
+            for (var i = 0; i < ctrl.icons.length; i++) {
+                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                    ctrl.icons[i].placemark.events.fire('mouseenter');
+                }
+            }
+        }
+        this.onStoreLeave = function (store) {
+            for (var i = 0; i < ctrl.icons.length; i++) {
+                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                    ctrl.icons[i].placemark.events.fire('mouseleave');
+                    break;
+                }
+            }
         }
     }
 
