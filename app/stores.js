@@ -174,7 +174,6 @@
                                 hideIconOnBalloonOpen: false
                             });
                         ctrl.myMap.geoObjects.add(placemark);
-                        console.dir(placemark);
                         placemark.events
                             .add('mouseenter', function (e) {
                                 // Ссылку на объект, вызвавший событие,
