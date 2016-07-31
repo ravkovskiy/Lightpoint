@@ -11,13 +11,13 @@
             }
         })
 
-    function StoreListController(storesService) {
+    function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
-
+        
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
-
+            ctrl.filteredArray = ctrl.stores;
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -31,7 +31,10 @@
             }
 
         };
-
+        this.filterStores = function() {
+            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+        }
+        
         this.gotoItems = function (store) {
             var storeOrder = store && store.order;
 

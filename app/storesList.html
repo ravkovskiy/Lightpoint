@@ -3,11 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="text-center search">
-            <label>Поиск: <input ng-model="$ctrl.search" class="form-control"></label><br>
+            <label>Поиск: <input ng-model="$ctrl.search" ng-change="$ctrl.filterStores()" class="form-control"></label><br>
         </div>
     </div>
     <ul class="col-sm-offset-1 col-sm-5" dnd-list="$ctrl.stores">
-        <li ng-repeat="store in $ctrl.stores | filter:$ctrl.search" dnd-draggable="store" dnd-moved="$ctrl.stores.splice($index, 1)"
+        <li ng-repeat="store in $ctrl.filteredArray" dnd-draggable="store" dnd-moved="$ctrl.stores.splice($index, 1)"
             dnd-effect-allowed="move" dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}"
             dnd-dragend="$ctrl.sortOrder()" href="#" ng-click="$ctrl.gotoItems(store)" ng-mouseenter="$ctrl.onStoreEnter(store)"
             ng-mouseleave="$ctrl.onStoreLeave(store)">
