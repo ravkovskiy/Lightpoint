@@ -210,14 +210,14 @@
         this.onStoreEnter = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
-                    ctrl.icons[i].placemark.events.fire('mouseenter');
+                    ctrl.icons[i].placemark.options.set('preset', 'twirl#greenStretchyIcon');
                 }
             }
         }
         this.onStoreLeave = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
-                    ctrl.icons[i].placemark.events.fire('mouseleave');
+                    ctrl.icons[i].placemark.options.set('preset', 'twirl#redStretchyIcon');
                     break;
                 }
             }
