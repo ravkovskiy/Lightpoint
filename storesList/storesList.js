@@ -39,8 +39,8 @@
         this.onAdd = function () {
             var stores = ctrl.stores;
             var id = 1;
-            for(var i = 0; i < stores.length; i++) {
-                if(stores[i].id >= id) {
+            for (var i = 0; i < stores.length; i++) {
+                if (stores[i].id >= id) {
                     id = stores[i].id + 1;
                 }
             }
