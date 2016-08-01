@@ -2,7 +2,7 @@
     'use strict';
     angular.module('stores')
         .component('itemsList', {
-            templateUrl: 'itemsList.html',
+            templateUrl: 'itemsList/itemsList.html',
             bindings: { $router: '<' },
             controller: itemsListController
         });

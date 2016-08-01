@@ -3,7 +3,7 @@
     angular.module('stores')
 
         .component('storeDetail', {
-            templateUrl: 'storeDetail.html',
+            templateUrl: 'storeDetail/storeDetail.html',
             bindings: { $router: '<' },
             controller: StoreDetailController
         })

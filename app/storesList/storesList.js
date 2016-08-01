@@ -3,12 +3,9 @@
     angular.module('stores')
 
         .component('storesList', {
-            templateUrl: 'storesList.html',
+            templateUrl: 'storesList/storesList.html',
             bindings: { $router: '<' },
-            controller: StoreListController,
-            $canActivate: function ($nextInstruction, $prevInstruction) {
-                console.log('$canActivate', arguments);
-            }
+            controller: StoreListController
         })
 
     function StoreListController(storesService, filterFilter) {
@@ -67,7 +64,6 @@
         };
         this.sortOrder = function () {
             var stores = ctrl.filteredArray;
-            console.log(stores);
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
@@ -92,7 +88,6 @@
         this.changeIcons = function () {
             var newArray = [];
             var isFound = false;
-            console.log('icons', ctrl.icons.length, ' filter ', ctrl.filteredArray)
             if (ctrl.icons.length >= ctrl.filteredArray.length || ctrl.icons.length == 0 && !ctrl.initMap) {
                 for (var j = 0; j < ctrl.icons.length; j++) {
                     for (var i = 0; i < ctrl.filteredArray.length; i++) {
@@ -120,7 +115,6 @@
                     if (isFound) {
                         isFound = false;
                     } else {
-                        console.log(ctrl.filteredArray[j]);
                         ctrl.saveIcon(ctrl.filteredArray, j);
                     }
                 }
