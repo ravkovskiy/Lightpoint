@@ -73,7 +73,7 @@
             if (icon === undefined) {
                 ctrl.createIcons();
             } else {
-                ctrl.saveIcon(stores, icon - 1);
+                ctrl.saveIcon(stores[icon - 1]);
             }
         }
         this.removeIcon = function (store, stores) {
@@ -115,23 +115,23 @@
                     if (isFound) {
                         isFound = false;
                     } else {
-                        ctrl.saveIcon(ctrl.filteredArray, j);
+                        ctrl.saveIcon(ctrl.filteredArray[j]);
                     }
                 }
             }
 
         }
         this.icons = [];
-        this.saveIcon = function (stores, i) {
-            var geocoder = ymaps.geocode(stores[i].adress);
+        this.saveIcon = function (store) {
+            var geocoder = ymaps.geocode(store.adress);
             geocoder.then(
                 function (res) {
                     try {
                         var geoCoord = res.geoObjects.get(0).geometry.getCoordinates();
 
                         var placemark = new ymaps.Placemark(geoCoord, {
-                            balloonContent: '<div>Адрес: ' + stores[i].adress + '</div><div>Время работы: ' + stores[i].operation + '</div><hr>',
-                            iconContent: stores[i].name
+                            balloonContent: '<div>Адрес: ' + store.adress + '</div><div>Время работы: ' + store.operation + '</div><hr>',
+                            iconContent: store.name
                         }, {
                                 preset: "twirl#redStretchyIcon",
                                 // Отключаем кнопку закрытия балуна.
@@ -150,7 +150,7 @@
                                 e.get('target').options.set('preset', 'twirl#redStretchyIcon');
                             });
 
-                        ctrl.icons.push({ id: stores[i].id, placemark: placemark });
+                        ctrl.icons.push({ id: store.id, placemark: placemark });
                     } catch (err) {
                         console.log('ошибка обработки адреса!')
                     }
@@ -165,7 +165,7 @@
             var stores = ctrl.stores;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
-                    ctrl.saveIcon(stores, i);
+                    ctrl.saveIcon(stores[i]);
                 })(i);
             }
         }
