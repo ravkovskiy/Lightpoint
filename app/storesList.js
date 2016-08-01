@@ -19,6 +19,7 @@
             ctrl.stores = storesService.getStores();
             ymaps.ready(initMap);
             function initMap() {
+                ctrl.initMap = true;
                 ctrl.myMap = new ymaps.Map('myMap', {
                     // центр и коэффициент масштабирования однозначно
                     // определяют область картографирования
@@ -92,7 +93,7 @@
             var newArray = [];
             var isFound = false;
             console.log('icons', ctrl.icons.length, ' filter ', ctrl.filteredArray)
-            if (ctrl.icons.length >= ctrl.filteredArray.length || ctrl.icons.length == 0) {
+            if (ctrl.icons.length >= ctrl.filteredArray.length || ctrl.icons.length == 0 && !ctrl.initMap) {
                 for (var j = 0; j < ctrl.icons.length; j++) {
                     for (var i = 0; i < ctrl.filteredArray.length; i++) {
                         if (ctrl.icons[j].id == ctrl.filteredArray[i].id) {
@@ -113,7 +114,6 @@
                     for (var i = 0; i < ctrl.icons.length; i++) {
                         if (ctrl.icons[i].id == ctrl.filteredArray[j].id) {
                             isFound = true;
-                            newArray.push(ctrl.icons[i]);
                             break;
                         }
                     }
@@ -122,7 +122,6 @@
                     } else {
                         console.log(ctrl.filteredArray[j]);
                         ctrl.saveIcon(ctrl.filteredArray, j);
-
                     }
                 }
             }
