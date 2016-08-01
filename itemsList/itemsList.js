@@ -2,7 +2,7 @@
     'use strict';
     angular.module('stores')
         .component('itemsList', {
-            templateUrl: 'itemsList.html',
+            templateUrl: 'itemsList/itemsList.html',
             bindings: { $router: '<' },
             controller: itemsListController
         });
@@ -12,13 +12,13 @@
 
         this.$routerOnActivate = function (next) {
 
-            var order = next.params.order;
-            ctrl.store = storesService.getStore(order);
+            var id = next.params.id;
+            ctrl.store = storesService.getStore(id);
         };
 
-        this.sortType = 'name'; // set the default sort type
-        this.sortReverse = false;  // set the default sort order
-        this.search = '';     // set the default search/filter term
+        this.sortType = 'name'; 
+        this.sortReverse = false;  
+        this.search = '';  
 
         this.onAdd = function () {
             ctrl.store.items.push({ name: ctrl.itemName, description: ctrl.itemDescription });

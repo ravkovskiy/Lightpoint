@@ -3,7 +3,7 @@
     angular.module('stores')
 
         .component('storeDetail', {
-            templateUrl: 'storeDetail.html',
+            templateUrl: 'storeDetail/storeDetail.html',
             bindings: { $router: '<' },
             controller: StoreDetailController
         })
@@ -12,8 +12,8 @@
         var ctrl = this;
         this.$routerOnActivate = function (next) {
 
-            var order = next.params.order;
-            var store = storesService.getStore(order);
+            var id = next.params.id;
+            var store = storesService.getStore(id);
 
             ctrl.editName = store.name;
             ctrl.editAdress = store.adress;
@@ -42,7 +42,6 @@
         };
 
         this.gotoStores = function () {
-            var storeOrder = ctrl.store && ctrl.store.order;
 
             this.$router.navigate(['StoresList']);
         };

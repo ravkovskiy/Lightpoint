@@ -7,28 +7,28 @@
             template: '<ng-outlet></ng-outlet>',
             $routeConfig: [
                 { path: '/', name: 'StoresList', component: 'storesList', useAsDefault: true },
-                { path: '/:order', name: 'StoreDetail', component: 'storeDetail' },
-                { path: '/:order/items', name: 'ItemsList', component: 'itemsList' }
+                { path: '/:id', name: 'StoreDetail', component: 'storeDetail' },
+                { path: '/:id/items', name: 'ItemsList', component: 'itemsList' }
             ]
         })
 
     function StoresService() {
         var stores = [
-            { order: 1, name: 'Алми', adress: 'Минск, Притыцкого 1', operation: '1:00-22:00', items: [{ name: 'refrigerator1', description: 'Good refrigerator1' }, { name: 'phone1', description: 'Good phone1' }] },
-            { order: 2, name: 'Green', adress: 'Минск, Пушкина 2', operation: '2:00-23:00', items: [{ name: 'refrigerator2', description: 'Good refrigerator2' }, { name: 'phone2', description: 'Good phone2' }] },
-            { order: 3, name: 'Евроопт', adress: 'Минск, Голубева 3', operation: '3:00-21:00', items: [{ name: 'refrigerator3', description: 'Good refrigerator3' }, { name: 'phone3', description: 'Good phone3' }] },
-            { order: 4, name: 'Соседи', adress: 'Минск, Мирошниченко 4', operation: '4:00-17:00', items: [{ name: 'refrigerator4', description: 'Good refrigerator4' }, { name: 'phone4', description: 'Good phone4' }] },
-            { order: 5, name: 'Prostore', adress: 'Минск, Якубовского 5', operation: '5:00-17:00', items: [{ name: 'refrigerator5', description: 'Good refrigerator5' }, { name: 'phone5', description: 'Good phone5' }] },
-            { order: 6, name: 'Корона', adress: 'Минск, Тимошенко 6', operation: '6:00-17:00', items: [{ name: 'refrigerator6', description: 'Good refrigerator6' }, { name: 'phone6', description: 'Good phone6' }] }
+            {id: 1, order: 1, name: 'Алми', adress: 'Минск, пр. Дзержинского, 91', operation: '08:00-22:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.25 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 8.50 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 18.54 руб.' }] },
+            {id: 2, order: 2, name: 'Green', adress: 'Минск, ул. Петра Глебки, 5', operation: '08:00-23:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.22 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 9.00 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 16.20 руб.' }] },
+            {id: 3, order: 3, name: 'Евроопт', adress: 'Минск, ул. Веры Хоружей, 15', operation: '3:00-21:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.25 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 8.50 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 18.54 руб.' }] },
+            {id: 4, order: 4, name: 'Соседи', adress: 'Минск, ул. Антоновская, 30', operation: '4:00-17:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.25 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 8.50 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 18.54 руб.' }] },
+            {id: 5, order: 5, name: 'Prostore', adress: 'Минск, пр. Победителей, 84', operation: '5:00-17:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.25 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 8.50 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 18.54 руб.' }] },
+            {id: 6, order: 6, name: 'Корона', adress: 'Минск, ул. Кальварийская, 24', operation: '6:00-17:00', items: [{ name: 'Молоко', description: 'Брест-Литовск - 1.25 руб.' }, { name: 'Сметана', description: 'Савушкин продукт - 8.50 руб.' }, { name: 'Масло', description: 'Бабушкина крынка - 18.54 руб.' }] }
         ];
 
         this.getStores = function () {
             return stores;
         };
 
-        this.getStore = function (order) {
+        this.getStore = function (id) {
                 for (var i = 0; i < stores.length; i++) {
-                    if (stores[i].order == order) return stores[i];
+                    if (stores[i].id == id) return stores[i];
                 }
         };
     }
