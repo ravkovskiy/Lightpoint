@@ -38,7 +38,12 @@
         };
         this.onAdd = function () {
             var stores = ctrl.stores;
-            var id = Math.ceil(Math.random() * 100000);
+            var id = 1;
+            for (var i = 0; i < stores.length; i++) {
+                if (stores[i].id >= id) {
+                    id = stores[i].id + 1;
+                }
+            }
             stores.push({ id: id, order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             ctrl.addIcon(stores.length);
