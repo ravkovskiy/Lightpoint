@@ -14,10 +14,9 @@
     function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
-        
+
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
-            ctrl.filteredArray = ctrl.stores;
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -29,35 +28,41 @@
                 ctrl.myMap.controls.add('zoomControl', { right: '15px' });
                 ctrl.addIcon();
             }
+            ctrl.filterStores();
 
         };
-        this.filterStores = function() {
+        this.filterStores = function () {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.changeIcons();
             ctrl.sortOrder();
         }
-        
-        this.gotoItems = function (store) {
-            var storeOrder = store && store.order;
 
-            this.$router.navigate(['ItemsList', { order: storeOrder }]);
+        this.gotoItems = function (store) {
+            var storeId = store && store.id;
+
+            this.$router.navigate(['ItemsList', { id: storeId }]);
         };
 
         this.onSelect = function (store) {
-            this.$router.navigate(['StoreDetail', { order: store.order }]);
+            this.$router.navigate(['StoreDetail', { id: store.id }]);
         };
         this.onAdd = function () {
             var stores = ctrl.stores;
-            stores.push({ order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
+            var id = Math.ceil(Math.random() * 100000);
+            stores.push({ id: id, order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
+            ctrl.filterStores();
             ctrl.addIcon(stores.length, stores);
         };
         this.onDelete = function (store) {
             var stores = ctrl.stores;
-            ctrl.removeIcon(store, stores)
-            stores.splice(store.order - 1, 1);
+            ctrl.removeIcon(store, stores);
+            var order = stores.indexOf(store);
+            stores.splice(order, 1);
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
+            ctrl.filterStores();
         };
         this.sortOrder = function () {
             var stores = ctrl.filteredArray;
@@ -68,7 +73,7 @@
         }
 
         this.addIcon = function (icon, stores) {
-            if (!icon) {
+            if (icon === undefined) {
                 ctrl.createIcons();
             } else {
                 ctrl.saveIcon(stores, icon - 1);
@@ -76,12 +81,52 @@
         }
         this.removeIcon = function (store, stores) {
             for (var i = 0; i < ctrl.icons.length; i++) {
-                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                if (ctrl.icons[i].id == store.id) {
                     ctrl.myMap.geoObjects.remove(ctrl.icons[i].placemark);
                     ctrl.icons.splice(i, 1);
                     break;
                 }
             }
+        }
+        this.changeIcons = function () {
+            var newArray = [];
+            var isFound = false;
+            console.log('icons', ctrl.icons.length, ' filter ', ctrl.filteredArray)
+            if (ctrl.icons.length >= ctrl.filteredArray.length || ctrl.icons.length == 0) {
+                for (var j = 0; j < ctrl.icons.length; j++) {
+                    for (var i = 0; i < ctrl.filteredArray.length; i++) {
+                        if (ctrl.icons[j].id == ctrl.filteredArray[i].id) {
+                            isFound = true;
+                            newArray.push(ctrl.icons[j]);
+                            break;
+                        }
+                    }
+                    if (isFound) {
+                        isFound = false;
+                    } else {
+                        ctrl.myMap.geoObjects.remove(ctrl.icons[j].placemark);
+                    }
+                }
+                ctrl.icons = newArray;
+            } else {
+                for (var j = 0; j < ctrl.filteredArray.length; j++) {
+                    for (var i = 0; i < ctrl.icons.length; i++) {
+                        if (ctrl.icons[i].id == ctrl.filteredArray[j].id) {
+                            isFound = true;
+                            newArray.push(ctrl.icons[i]);
+                            break;
+                        }
+                    }
+                    if (isFound) {
+                        isFound = false;
+                    } else {
+                        console.log(ctrl.filteredArray[j]);
+                        ctrl.saveIcon(ctrl.filteredArray, j);
+
+                    }
+                }
+            }
+
         }
         this.icons = [];
         this.saveIcon = function (stores, i) {
@@ -112,9 +157,9 @@
                                 e.get('target').options.set('preset', 'twirl#redStretchyIcon');
                             });
 
-
-                        ctrl.icons.push({ adress: stores[i].adress, name: stores[i].name, placemark: placemark });
+                        ctrl.icons.push({ id: stores[i].id, placemark: placemark });
                     } catch (err) {
+                        console.log('ошибка обработки адреса!')
                     }
 
                 },
@@ -134,14 +179,15 @@
 
         this.onStoreEnter = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
-                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                if (ctrl.icons[i].id == store.id) {
                     ctrl.icons[i].placemark.options.set('preset', 'twirl#greenStretchyIcon');
+                    break;
                 }
             }
         }
         this.onStoreLeave = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
-                if (ctrl.icons[i].name == store.name && ctrl.icons[i].adress == store.adress) {
+                if (ctrl.icons[i].id == store.id) {
                     ctrl.icons[i].placemark.options.set('preset', 'twirl#redStretchyIcon');
                     break;
                 }
