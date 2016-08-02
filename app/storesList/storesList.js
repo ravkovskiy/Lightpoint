@@ -106,12 +106,11 @@
 
                         ctrl.icons.push({ id: store.id, placemark: placemark });
                     } catch (err) {
-                        console.log('ошибка обработки адреса!')
+                        console.log('Ошибка обработки адреса.')
                     }
 
                 },
                 function (err) {
-                    console.log('ошибка');
                 }
             );
         }
