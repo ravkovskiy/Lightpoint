@@ -30,6 +30,13 @@
         };
         this.filterStores = function() {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.sortOrder();
+            for(var i=0; i < ctrl.icons.length; i++) {
+                ctrl.removeIcon(ctrl.icons[i]);
+                i--;
+            }
+            console.log(ctrl.icons);
+            ctrl.addIcon();
         }
         this.gotoItems = function (store) {
             var storeId = store && store.id;
@@ -126,7 +133,7 @@
             );
         }
         this.createIcons = function () {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
                     ctrl.saveIcon(stores[i]);
