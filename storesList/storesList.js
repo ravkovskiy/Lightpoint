@@ -8,13 +8,17 @@
             controller: StoreListController
         })
 
-    function StoreListController(storesService) {
+    function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
 
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
+            ctrl.search = '';
+            ctrl.filterTime = new Date();
+            ctrl.timer;
+            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -27,6 +31,22 @@
 
         };
 
+        this.filterStores = function () {
+            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.sortOrder();
+            for (var i = 0; i < ctrl.icons.length; i++) {
+                ctrl.removeIcon(ctrl.icons[i]);
+                i--;
+            }
+
+            if (new Date() - ctrl.filterTime < 1000) {
+                clearTimeout(ctrl.timer);
+                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
+            } else {
+                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
+            }
+            ctrl.filterTime = new Date();
+        }
         this.gotoItems = function (store) {
             var storeId = store && store.id;
 
@@ -46,19 +66,26 @@
             }
             stores.push({ id: id, order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
-            ctrl.addIcon(stores.length);
+            ctrl.filterStores();
         };
         this.onDelete = function (store) {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             ctrl.removeIcon(store);
             var order = stores.indexOf(store);
             stores.splice(order, 1);
+            stores = ctrl.stores;
+            for (var i = 0; i < stores.length; i++) {
+                if (stores[i].id == store.id) {
+                    stores.splice(i, 1);
+                    break;
+                }
+            }
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
         };
         this.sortOrder = function () {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
@@ -106,17 +133,16 @@
 
                         ctrl.icons.push({ id: store.id, placemark: placemark });
                     } catch (err) {
-                        console.log('ошибка обработки адреса!')
+                        console.log('Ошибка обработки адреса.')
                     }
 
                 },
                 function (err) {
-                    console.log('ошибка');
                 }
             );
         }
         this.createIcons = function () {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
                     ctrl.saveIcon(stores[i]);
