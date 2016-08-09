@@ -8,13 +8,15 @@
             controller: StoreListController
         })
 
-    function StoreListController(storesService) {
+    function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
 
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
+            ctrl.search = '';
+            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -26,7 +28,9 @@
             }
 
         };
-
+        this.filterStores = function() {
+            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+        }
         this.gotoItems = function (store) {
             var storeId = store && store.id;
 
@@ -49,16 +53,23 @@
             ctrl.addIcon(stores.length);
         };
         this.onDelete = function (store) {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             ctrl.removeIcon(store);
             var order = stores.indexOf(store);
             stores.splice(order, 1);
+            stores = ctrl.stores;
+            for(var i = 0; i < stores.length; i++) {
+                if(stores[i].id == store.id) {
+                    stores.splice(i, 1);
+                    break;
+                }
+            }
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
         };
         this.sortOrder = function () {
-            var stores = ctrl.stores;
+            var stores = ctrl.filteredArray;
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
