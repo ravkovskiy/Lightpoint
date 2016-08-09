@@ -19,7 +19,7 @@
             ctrl.filterTime = new Date();
             ctrl.timer;
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
-            
+
             /*Start pagination code*/
             ctrl.currentPage = 1;
             ctrl.numPerPage = 4;
@@ -39,6 +39,13 @@
             }
 
         };
+
+        this.onChangePage = function () {
+            ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
+            ctrl.end = ctrl.begin + ctrl.numPerPage;
+            ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.addIcon();
+        }
 
         this.filterStores = function () {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
@@ -84,7 +91,7 @@
         };
 
         this.onDelete = function (store) {
-            var stores = ctrl.filteredArray;
+            var stores = ctrl.paginationArray;
             ctrl.removeIcon(store);
             var order = stores.indexOf(store);
             stores.splice(order, 1);
@@ -101,7 +108,7 @@
         };
 
         this.sortOrder = function () {
-            var stores = ctrl.filteredArray;
+            var stores = ctrl.paginationArray;
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
             }
@@ -161,7 +168,7 @@
         };
 
         this.createIcons = function () {
-            var stores = ctrl.filteredArray;
+            var stores = ctrl.paginationArray;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
                     ctrl.saveIcon(stores[i]);
