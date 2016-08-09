@@ -19,6 +19,15 @@
             ctrl.filterTime = new Date();
             ctrl.timer;
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            
+            /*Start pagination code*/
+            ctrl.currentPage = 1;
+            ctrl.numPerPage = 4;
+            ctrl.maxSize = 5;
+            ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
+            ctrl.end = ctrl.begin + ctrl.numPerPage;
+            ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -168,7 +177,7 @@
                 }
             }
         };
-        
+
         this.onStoreLeave = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 if (ctrl.icons[i].id == store.id) {
@@ -176,7 +185,8 @@
                     break;
                 }
             }
-        }
+        };
+
     }
 
 })(window.angular);

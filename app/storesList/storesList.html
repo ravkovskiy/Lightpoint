@@ -9,7 +9,7 @@
     <ul class="col-sm-offset-1 col-sm-5" dnd-list="$ctrl.filteredArray">
         <li ng-repeat="store in $ctrl.filteredArray" dnd-draggable="store" dnd-moved="$ctrl.filteredArray.splice($index, 1)" dnd-effect-allowed="move"
             dnd-selected="$ctrl.selected = store" ng-class="{ selected: $ctrl.selected === store}" dnd-dragend="$ctrl.sortOrder()"
-            href="#" ng-click="$ctrl.gotoItems(store)" ng-mouseenter="$ctrl.onStoreEnter(store)" ng-mouseleave="$ctrl.onStoreLeave(store)">
+            href="#" ng-click="$ctrl.gotoItems(store)" ng-mouseenter="$ctrl.onStoreEnter(store)" ng-mouseleave="$ctrl.onStoreLeave(store)" class="store">
             <span class="badge pull-left">{{store.order}}</span>
             <div>
                 <button ng-click="$ctrl.onDelete(store)" type="button" class="close" aria-hidden="true">&times;</button>
@@ -52,5 +52,7 @@
         </form>
         <!-- Область показа карты -->
         <div class="col-sm-12" id="myMap"></div>
+        <pagination class="col-sm-12" ng-model="$ctrl.currentPage" total-items="$ctrl.filteredArray.length" max-size="$ctrl.maxSize" items-per-page="$ctrl.numPerPage" boundary-links="true">
+        </pagination>
     </div>
 </div>
