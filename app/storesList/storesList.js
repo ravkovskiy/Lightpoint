@@ -16,6 +16,8 @@
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
             ctrl.search = '';
+            ctrl.filterTime = new Date();
+            ctrl.timer;
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
             ymaps.ready(initMap);
             function initMap() {
@@ -28,15 +30,22 @@
             }
 
         };
-        this.filterStores = function() {
+
+        this.filterStores = function () {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
             ctrl.sortOrder();
-            for(var i=0; i < ctrl.icons.length; i++) {
+            for (var i = 0; i < ctrl.icons.length; i++) {
                 ctrl.removeIcon(ctrl.icons[i]);
                 i--;
             }
-            console.log(ctrl.icons);
-            ctrl.addIcon();
+
+            if (new Date() - ctrl.filterTime < 1000) {
+                clearTimeout(ctrl.timer);
+                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
+            } else {
+                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
+            }
+            ctrl.filterTime = new Date();
         }
         this.gotoItems = function (store) {
             var storeId = store && store.id;
@@ -57,7 +66,7 @@
             }
             stores.push({ id: id, order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
-            ctrl.addIcon(stores.length);
+            ctrl.filterStores();
         };
         this.onDelete = function (store) {
             var stores = ctrl.filteredArray;
@@ -65,8 +74,8 @@
             var order = stores.indexOf(store);
             stores.splice(order, 1);
             stores = ctrl.stores;
-            for(var i = 0; i < stores.length; i++) {
-                if(stores[i].id == store.id) {
+            for (var i = 0; i < stores.length; i++) {
+                if (stores[i].id == store.id) {
                     stores.splice(i, 1);
                     break;
                 }
