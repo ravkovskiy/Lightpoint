@@ -23,7 +23,7 @@
             /*Start pagination code*/
             ctrl.currentPage = 1;
             ctrl.numPerPage = 4;
-            ctrl.maxSize = 5;
+            ctrl.maxSize = 3;
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
