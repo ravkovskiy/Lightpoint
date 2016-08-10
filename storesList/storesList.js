@@ -19,6 +19,16 @@
             ctrl.filterTime = new Date();
             ctrl.timer;
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+
+            /*Start pagination code*/
+            ctrl.currentPage = 1;
+            ctrl.numPerPage = 4;
+            ctrl.maxSize = 3;
+            ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
+            ctrl.end = ctrl.begin + ctrl.numPerPage;
+            ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.sortOrder();
+
             ymaps.ready(initMap);
             function initMap() {
                 ctrl.myMap = new ymaps.Map('myMap', {
@@ -31,22 +41,36 @@
 
         };
 
+        this.onChangePage = function () {
+            ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
+            ctrl.end = ctrl.begin + ctrl.numPerPage;
+            ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.updateMap();
+        }
+
         this.filterStores = function () {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
+            ctrl.end = ctrl.begin + ctrl.numPerPage;
+            ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
             ctrl.sortOrder();
+            if (new Date() - ctrl.filterTime < 1000) {
+                clearTimeout(ctrl.timer);
+                ctrl.timer = setTimeout(ctrl.updateMap, 1000);
+            } else {
+                ctrl.timer = setTimeout(ctrl.updateMap, 300);
+            }
+            ctrl.filterTime = new Date();
+        };
+
+        this.updateMap = function () {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 ctrl.removeIcon(ctrl.icons[i]);
                 i--;
             }
+            ctrl.addIcon();
+        };
 
-            if (new Date() - ctrl.filterTime < 1000) {
-                clearTimeout(ctrl.timer);
-                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
-            } else {
-                ctrl.timer = setTimeout(ctrl.addIcon, 1000);
-            }
-            ctrl.filterTime = new Date();
-        }
         this.gotoItems = function (store) {
             var storeId = store && store.id;
 
@@ -56,6 +80,7 @@
         this.onSelect = function (store) {
             this.$router.navigate(['StoreDetail', { id: store.id }]);
         };
+
         this.onAdd = function () {
             var stores = ctrl.stores;
             var id = 1;
@@ -67,9 +92,11 @@
             stores.push({ id: id, order: stores.length + 1, name: ctrl.storeName, adress: ctrl.storeAdress, operation: ctrl.storeModeOreration, items: [] });
             ctrl.storeName = ctrl.storeAdress = ctrl.storeModeOreration = '';
             ctrl.filterStores();
+            this.onChangePage();
         };
+
         this.onDelete = function (store) {
-            var stores = ctrl.filteredArray;
+            var stores = ctrl.paginationArray;
             ctrl.removeIcon(store);
             var order = stores.indexOf(store);
             stores.splice(order, 1);
@@ -80,16 +107,25 @@
                     break;
                 }
             }
+            stores = ctrl.filteredArray;
+            for (var i = 0; i < stores.length; i++) {
+                if (stores[i].id == store.id) {
+                    stores.splice(i, 1);
+                    break;
+                }
+            }
             for (var i = 1; i <= stores.length; i++) {
                 stores[i - 1].order = i;
+            }
+            this.onChangePage();
+        };
+
+        this.sortOrder = function () {
+            var stores = ctrl.paginationArray;
+            for (var i = 1; i <= stores.length; i++) {
+                stores[i - 1].order = i + (ctrl.currentPage - 1) * ctrl.numPerPage;
             }
         };
-        this.sortOrder = function () {
-            var stores = ctrl.filteredArray;
-            for (var i = 1; i <= stores.length; i++) {
-                stores[i - 1].order = i;
-            }
-        }
 
         this.addIcon = function (icon) {
             if (icon === undefined) {
@@ -97,7 +133,8 @@
             } else {
                 ctrl.saveIcon(ctrl.stores[icon - 1]);
             }
-        }
+        };
+
         this.removeIcon = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 if (ctrl.icons[i].id == store.id) {
@@ -106,7 +143,8 @@
                     break;
                 }
             }
-        }
+        };
+
         this.saveIcon = function (store) {
             var geocoder = ymaps.geocode(store.adress);
             geocoder.then(
@@ -140,15 +178,16 @@
                 function (err) {
                 }
             );
-        }
+        };
+
         this.createIcons = function () {
-            var stores = ctrl.filteredArray;
+            var stores = ctrl.paginationArray;
             for (var i = 0; i < stores.length; i++) {
                 (function (i) {
                     ctrl.saveIcon(stores[i]);
                 })(i);
             }
-        }
+        };
 
         this.onStoreEnter = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
@@ -157,7 +196,8 @@
                     break;
                 }
             }
-        }
+        };
+
         this.onStoreLeave = function (store) {
             for (var i = 0; i < ctrl.icons.length; i++) {
                 if (ctrl.icons[i].id == store.id) {
@@ -165,7 +205,8 @@
                     break;
                 }
             }
-        }
+        };
+
     }
 
 })(window.angular);

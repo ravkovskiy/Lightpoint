@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('stores', ['dndLists'])
+    angular.module('stores', ['dndLists', 'ui.bootstrap'])
         .service('storesService', StoresService)
 
         .component('stores', {
