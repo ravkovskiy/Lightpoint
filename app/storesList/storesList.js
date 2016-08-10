@@ -27,6 +27,7 @@
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.sortOrder();
 
             ymaps.ready(initMap);
             function initMap() {
@@ -49,10 +50,10 @@
 
         this.filterStores = function () {
             ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
-            ctrl.sortOrder();
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.sortOrder();
             if (new Date() - ctrl.filterTime < 1000) {
                 clearTimeout(ctrl.timer);
                 ctrl.timer = setTimeout(ctrl.updateMap, 1000);
