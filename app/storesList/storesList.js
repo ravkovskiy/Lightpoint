@@ -49,7 +49,11 @@
         }
 
         this.filterStores = function () {
-            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
+                if (~item.name.toUpperCase().indexOf(ctrl.search.toUpperCase())) {
+                    return true;
+                }
+            });
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
