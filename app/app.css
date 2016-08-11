@@ -122,3 +122,6 @@ div.list-group a{
   font-weight: bold;
   color: steelblue;
 }
+.title {
+  cursor: pointer;
+}

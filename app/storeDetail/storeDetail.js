@@ -45,6 +45,11 @@
 
             this.$router.navigate(['StoresList']);
         };
+        this.gotoItems = function () {
+            var storeId = ctrl.store && ctrl.store.id;
+
+            this.$router.navigate(['ItemsList', { id: storeId }]);
+        };
     }
 
 })(window.angular);
