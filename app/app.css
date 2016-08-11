@@ -117,3 +117,8 @@ div.list-group a{
 .sort-items span{
   font-size: 12px;
 }
+.header-search-block {
+  font-size: 19px;
+  font-weight: bold;
+  color: steelblue;
+}

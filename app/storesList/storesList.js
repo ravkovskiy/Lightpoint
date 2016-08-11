@@ -15,10 +15,11 @@
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
-            ctrl.search = '';
+            ctrl.searchStores = '';
+            ctrl.searchItems = '';
             ctrl.filterTime = new Date();
             ctrl.timer;
-            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.filteredArray = filterFilter(ctrl.stores, '');
 
             /*Start pagination code*/
             ctrl.currentPage = 1;
@@ -49,11 +50,20 @@
         }
 
         this.filterStores = function () {
-            ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
-                if (~item.name.toUpperCase().indexOf(ctrl.search.toUpperCase())) {
-                    return true;
-                }
-            });
+            
+                ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
+                    ctrl.filteredItems = filterFilter(item.items, function (item, i, array) {
+                        if (~item.name.toUpperCase().indexOf(ctrl.searchItems.toUpperCase())) {
+                            return true;
+                        }
+                    });
+                    if (ctrl.filteredItems.length > 0) {
+                        if (~item.name.toUpperCase().indexOf(ctrl.searchStores.toUpperCase())) {
+                            return true;
+                        }
+                    }
+                });
+
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
