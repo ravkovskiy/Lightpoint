@@ -11,7 +11,7 @@
     function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
-
+        
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
