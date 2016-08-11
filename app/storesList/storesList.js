@@ -46,11 +46,18 @@
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.sortOrder();
             ctrl.updateMap();
         }
 
         this.filterStores = function () {
-            
+            if (ctrl.searchItems === '') {
+                ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
+                    if (~item.name.toUpperCase().indexOf(ctrl.searchStores.toUpperCase())) {
+                        return true;
+                    }
+                });
+            } else {
                 ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
                     ctrl.filteredItems = filterFilter(item.items, function (item, i, array) {
                         if (~item.name.toUpperCase().indexOf(ctrl.searchItems.toUpperCase())) {
@@ -63,6 +70,7 @@
                         }
                     }
                 });
+            };
 
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
