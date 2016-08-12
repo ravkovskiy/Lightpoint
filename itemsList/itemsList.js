@@ -30,5 +30,8 @@
         this.return = function () {
             this.$router.navigate(['StoresList']);
         };
+        this.onItems = function () {
+            this.$router.navigate(['StoreDetail', { id: ctrl.store.id }]);
+        };
     }
 })(window.angular);

@@ -11,18 +11,19 @@
     function StoreListController(storesService, filterFilter) {
         var ctrl = this;
         this.selected = null;
-
+        
         this.$routerOnActivate = function (next) {
             ctrl.stores = storesService.getStores();
             ctrl.icons = [];
-            ctrl.search = '';
+            ctrl.searchStores = '';
+            ctrl.searchItems = '';
             ctrl.filterTime = new Date();
             ctrl.timer;
-            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            ctrl.filteredArray = filterFilter(ctrl.stores, '');
 
             /*Start pagination code*/
             ctrl.currentPage = 1;
-            ctrl.numPerPage = 4;
+            ctrl.numPerPage = 3;
             ctrl.maxSize = 3;
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
@@ -45,11 +46,32 @@
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
+            ctrl.sortOrder();
             ctrl.updateMap();
         }
 
         this.filterStores = function () {
-            ctrl.filteredArray = filterFilter(ctrl.stores, ctrl.search);
+            if (ctrl.searchItems === '') {
+                ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
+                    if (~item.name.toUpperCase().indexOf(ctrl.searchStores.toUpperCase())) {
+                        return true;
+                    }
+                });
+            } else {
+                ctrl.filteredArray = filterFilter(ctrl.stores, function (item, i, array) {
+                    ctrl.filteredItems = filterFilter(item.items, function (item, i, array) {
+                        if (~item.name.toUpperCase().indexOf(ctrl.searchItems.toUpperCase())) {
+                            return true;
+                        }
+                    });
+                    if (ctrl.filteredItems.length > 0) {
+                        if (~item.name.toUpperCase().indexOf(ctrl.searchStores.toUpperCase())) {
+                            return true;
+                        }
+                    }
+                });
+            };
+
             ctrl.begin = ((ctrl.currentPage - 1) * this.numPerPage);
             ctrl.end = ctrl.begin + ctrl.numPerPage;
             ctrl.paginationArray = ctrl.filteredArray.slice(ctrl.begin, ctrl.end);
