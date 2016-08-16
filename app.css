@@ -125,3 +125,7 @@ div.list-group a{
 .title {
   cursor: pointer;
 }
+.ymaps-map {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
