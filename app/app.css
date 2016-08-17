@@ -62,9 +62,6 @@ td .close {
 div.list-group a{
   position: relative;
 }
-.search {
-  height: 90px;
-}
 
  ul[dnd-list],
  ul[dnd-list] > li {
